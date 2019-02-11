@@ -388,12 +388,14 @@ function setLandscapeImageTooltip(config){
 
 function getToolTipMsg(config){
 	console.log(config);
-	var msg = " (Resolution: "+ config.width +"x"+config.height +"; Max file size: "+ config.size/1000 + "Kb";
-	if(config.size_gif){
-		msg = msg + "; Max gif size: " + config.size_gif/1000 + "Kb";
+	if(config){
+		var msg = " (Resolution: "+ config.width +"x"+config.height +"; Max file size: "+ config.size/1000 + "Kb";
+		if(config.size_gif){
+			msg = msg + "; Max gif size: " + config.size_gif/1000 + "Kb";
+		}
+		msg = msg + " )"
+		return msg;
 	}
-	msg = msg + " )"
-	return msg;
 }
 
 function listenToSubmitForm(){
