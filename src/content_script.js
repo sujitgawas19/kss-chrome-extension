@@ -148,8 +148,8 @@ function fetchElement(id, element){
 			// document.getElementsByTagName("body")[0].classList.remove('full-page-loader');
 		}
 	};
-	// var url = domain + "/api/rest/v1/get-page-element/"+id +"?type="+static_element_type+'&page_slug='+static_element_page_slug;
-	var url = 'https://demo8558685.mockable.io/get-page-element';
+	var url = domain + "/api/rest/v1/get-page-element/"+id +"?type="+static_element_type+'&page_slug='+static_element_page_slug;
+	// var url = 'https://demo8558685.mockable.io/get-page-element';
 	xhttp.open("GET", url , true);
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
 	xhttp.setRequestHeader("Content-Type", "application/json");
