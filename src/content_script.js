@@ -21,7 +21,7 @@ var gif_max_size;
 var sequence_id, static_element_name, static_element_type, static_element_page_slug;
 var domain = window.location.origin;
 
-var link, link_error, bg_color, bg_color_error, text_color, text_color_error;
+var link, link_error, bg_color, bg_color_error, text_color, text2_color;
 
 console.log("domain ==>", domain);
 
@@ -90,7 +90,7 @@ function addEditingEnabledElement(logged_in){
 				else
 					url = domain+'/draft/' + window.location.pathname.substring(6);
 				window.open(url);
-				win.focus();
+				// win.focus();
 			});
 	    }
 	};
@@ -242,11 +242,11 @@ function findFormElements(){
 
 	link = document.getElementById("form-popup-gender-link");
 	bg_color = document.getElementById("form-popup-bg-color");
-	text_color = document.getElementById("form-popup-text-color");
+	text_color = document.getElementById("form-popup-text1-color");
+	text2_color = document.getElementById("form-popup-text2-color");
 
 	link_error = document.getElementById("gender_link_error");
 	bg_color_error = document.getElementById("bg_color_error");
-	text_color_error = document.getElementById("text_color_error");
 }
 
 function createEventListeners(){
@@ -344,7 +344,14 @@ function createForm(response){
 		text_color.value = response.element_data.text_color;		
 	}
 	else{
-		document.getElementById("form-text-color-section").style.display="none";
+		document.getElementById("form-text-color1-section").style.display="none";
+	}
+
+	if(response.element_data.text2_color){
+		text2_color.value = response.element_data.text2_color;		
+	}
+	else{
+		document.getElementById("form-text-color2-section").style.display="none";
 	}
 
 	if(response.images){
@@ -478,6 +485,10 @@ function validateForm(){
 
 		if(elementData.element_data.text_color){
 			elementData.element_data.text_color = text_color.value;
+		}
+
+		if(elementData.element_data.text2_color){
+			elementData.element_data.text2_color = text2_color.value;
 		}
 
 		if(port_img.value || landscape_img.value){
