@@ -707,11 +707,11 @@ function getBase64(file) {
 function setTimeoutVariable() {
 	let element = document.querySelector(".kss-alert");
 
-    // kss_alert_timeout = setTimeout(function()
-    // {
-    //     element.classList.remove('is-open', 'kss-alert--success', 'kss-alert--failure', );
-    //     clearTimeout(kss_alert_timeout);
-    // }, 2500);
+    kss_alert_timeout = setTimeout(function()
+    {
+        element.classList.remove('is-open', 'kss-alert--success', 'kss-alert--failure', );
+        clearTimeout(kss_alert_timeout);
+    }, 2500);
 }
 
 function previewFile(type) {
