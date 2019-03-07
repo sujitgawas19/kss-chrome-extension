@@ -85,7 +85,7 @@ function addEditingEnabledElement(logged_in){
 	        document.body.insertBefore(div, document.body.firstChild);
         	document.getElementById('draft-btn').addEventListener('click', function(){
         		var url;
-        		if(window.location.pathname == '/')        		
+        		if(window.location.pathname == '/' || window.location.pathname == '/newhome')        		
 					url = domain+'/drafthome';
 				else
 					url = domain+'/draft/' + window.location.pathname.substring(6);
