@@ -20,6 +20,9 @@ var gif_max_size;
 
 var sequence_id, static_element_name, static_element_type, static_element_page_slug;
 var domain = window.location.origin;
+
+var link, link_error, bg_color, bg_color_error, text_color, text_color_error;
+
 console.log("domain ==>", domain);
 
 if(isLoggedInUser()){
@@ -35,35 +38,38 @@ else{
 }
 
 function findEditableElements(logged_in){
-	var elements = document.getElementsByClassName('kss-extension');
-	// console.log("elements ==>", elements);
-	for(var i = 0; i < elements.length; i++){
-		var btn = document.createElement("BUTTON");
-		btn.setAttribute("class", "update-element-btn btn btn-danger btn-lg pulsing");
-		if(logged_in){
-			if(elements[i].getAttribute("static_element-display_type") == "Banner")
-				btn.setAttribute("style", "visibility:visible;width:auto;position:relative;top: -34vw;left: 90%;");
-			else if(elements[i].getAttribute("static_element-display_type") == "Section")
-				btn.setAttribute("style", "width:auto;position:absolute;top:-15px;right:0");			
-			else 
-				btn.setAttribute("style", "width:auto;position:absolute;z-index: 1;top: 10px;right:0");			
-		}
-		else{
-			if(elements[i].getAttribute("static_element-display_type") == "Banner")
-				btn.setAttribute("style", "visibility:visible;width:auto;position:relative;top: -34vw;left: 90%;");
-			else if(elements[i].getAttribute("static_element-display_type") == "Section")
-				btn.setAttribute("style", "width:auto;position:absolute;top:-15px;right:0");
-			else
-				btn.setAttribute("style", "width:auto;position:absolute;z-index: 1;top: 10px;right:0");	
+	setTimeout(()=>{
+		var elements = document.getElementsByClassName('kss-extension');
+		console.log("findEditableElements ==>", logged_in, elements.length);
+		for(var i = 0; i < elements.length; i++){
+			var btn = document.createElement("BUTTON");
+			btn.setAttribute("class", "update-element-btn btn btn-danger btn-lg pulsing");
+			if(logged_in){
+				if(elements[i].getAttribute("static_element-display_type") == "Banner")
+					btn.setAttribute("style", "visibility:visible;width:auto;position:relative;top: -34vw;left: 90%;");
+				else if(elements[i].getAttribute("static_element-display_type") == "Section")
+					btn.setAttribute("style", "width:auto;position:absolute;top:-15px;right:0");			
+				else 
+					btn.setAttribute("style", "width:auto;position:absolute;z-index: 1;top: 10px;right:0");			
+			}
+			else{
+				if(elements[i].getAttribute("static_element-display_type") == "Banner")
+					btn.setAttribute("style", "visibility:visible;width:auto;position:relative;top: -34vw;left: 90%;");
+				else if(elements[i].getAttribute("static_element-display_type") == "Section")
+					btn.setAttribute("style", "width:auto;position:absolute;top:-15px;right:0");
+				else
+					btn.setAttribute("style", "width:auto;position:absolute;z-index: 1;top: 10px;right:0");	
 
-			btn.setAttribute("class", "update-element-btn btn btn-danger btn-lg pulsing d-none");
+				btn.setAttribute("class", "update-element-btn btn btn-danger btn-lg pulsing d-none");
+			}
+			var btn_name = "Edit "+elements[i].getAttribute("static_element-display_type")+ " " +elements[i].getAttribute("static_element-id");
+			console.log("btn name ==>", btn_name);
+			var text = document.createTextNode(btn_name);
+			btn.appendChild(text);
+			elements[i].appendChild(btn);
 		}
-		var btn_name = "Edit "+elements[i].getAttribute("static_element-display_type")+ " " +elements[i].getAttribute("static_element-id");
-		var text = document.createTextNode(btn_name);
-		btn.appendChild(text);
-		elements[i].appendChild(btn);
-	}
-	addEventListner()
+		addEventListner()
+	},3000);
 }
 
 function addEditingEnabledElement(logged_in){
@@ -197,6 +203,8 @@ function getFormTemplate(response){
 	        document.body.insertBefore(div, document.body.firstChild);
 	        createForm(response);
 	        document.getElementById("modal-trigger-button").click();
+	        document.getElementById("form_popup").classList.add('show');
+	        document.getElementsByClassName("modal-backdrop")[0].classList.add('show');
 	    }
 	};
 	xhttp.open("GET", chrome.extension.getURL("/form_popup.html"), true);
@@ -231,6 +239,14 @@ function findFormElements(){
 
 	trending_product = document.getElementById('form-popup-trending-product');
 	trending_product_error = document.getElementById('trending_product_error');
+
+	link = document.getElementById("form-popup-gender-link");
+	bg_color = document.getElementById("form-popup-bg-color");
+	text_color = document.getElementById("form-popup-text-color");
+
+	link_error = document.getElementById("gender_link_error");
+	bg_color_error = document.getElementById("bg_color_error");
+	text_color_error = document.getElementById("text_color_error");
 }
 
 function createEventListeners(){
@@ -308,6 +324,27 @@ function createForm(response){
 	}
 	else{
 		document.getElementById("form-trending-product").style.display="none";
+	}
+
+	if(response.element_data.link){
+		link.value = response.element_data.link;		
+	}
+	else{
+		document.getElementById("form-gender-link-section").style.display="none";
+	}
+
+	if(response.element_data.bg_color){
+		bg_color.value = response.element_data.bg_color;		
+	}
+	else{
+		document.getElementById("form-bg-color-section").style.display="none";
+	}
+
+	if(response.element_data.text_color){
+		text_color.value = response.element_data.text_color;		
+	}
+	else{
+		document.getElementById("form-text-color-section").style.display="none";
 	}
 
 	if(response.images){
@@ -429,6 +466,18 @@ function validateForm(){
 		}
 		if(elementData.element_data.products && elementData.element_data.products.length == 1){
 			elementData.element_data.products[0] = trending_product.value;
+		}
+
+		if(elementData.element_data.bg_color){
+			elementData.element_data.bg_color = bg_color.value;
+		}
+
+		if(elementData.element_data.link){
+			elementData.element_data.link = link.value;
+		}
+
+		if(elementData.element_data.text_color){
+			elementData.element_data.text_color = text_color.value;
 		}
 
 		if(port_img.value || landscape_img.value){
@@ -658,11 +707,11 @@ function getBase64(file) {
 function setTimeoutVariable() {
 	let element = document.querySelector(".kss-alert");
 
-    kss_alert_timeout = setTimeout(function()
-    {
-        element.classList.remove('is-open', 'kss-alert--success', 'kss-alert--failure', );
-        clearTimeout(kss_alert_timeout);
-    }, 2500);
+    // kss_alert_timeout = setTimeout(function()
+    // {
+    //     element.classList.remove('is-open', 'kss-alert--success', 'kss-alert--failure', );
+    //     clearTimeout(kss_alert_timeout);
+    // }, 2500);
 }
 
 function previewFile(type) {
