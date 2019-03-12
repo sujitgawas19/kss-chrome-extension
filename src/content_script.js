@@ -5,7 +5,7 @@ var href,port_img_name,landscape_img_name,port_img,landscape_img,title,img_alt,r
 var href_error, title_error, img_alt_error, portrait_img_error, landscape_img_error;
 var elementData;
 var reader  = new FileReader();
-var text1, text2, text_error_1, text_error_2;
+var text1, text2, text_error_1, text_error_2, text3, text_error_3;
 var kss_alert_timeout;
 var product1, product2, product3, product1_error, product2_error, product3_error;
 var trending_product, trending_product_error;
@@ -229,6 +229,8 @@ function findFormElements(){
 	text2 = document.getElementById("form-popup-text2");
 	text_error_1 = document.getElementById("text1_error");
 	text_error_2 = document.getElementById("text2_error");
+	text3 = document.getElementById("form-popup-text3");
+	text_error_3 = document.getElementById("text3_error");
 
 	product1 = document.getElementById('form-popup-product1');
 	product2 = document.getElementById('form-popup-product2');
@@ -302,6 +304,10 @@ function createForm(response){
 	if(response.element_data.text){
 		text1.value = response.element_data.text.text1;
 		text2.value = response.element_data.text.text2;
+		if(response.element_data.text.text3)
+			text3.value = response.element_data.text.text3;
+		else
+			document.getElementById("form-text-section-text3").style.display="none";	
 	}
 	else{
 		document.getElementById("form-text-section").style.display="none";
@@ -465,6 +471,8 @@ function validateForm(){
 		if(elementData.element_data.text){
 			elementData.element_data.text.text1 = text1.value;
 			elementData.element_data.text.text2 = text2.value;
+			if(elementData.element_data.text.text3)
+				elementData.element_data.text.text3 = text3.value;
 		}
 		if(elementData.element_data.products && elementData.element_data.products.length == 3){
 			elementData.element_data.products[0] = product1.value;
