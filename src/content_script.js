@@ -303,7 +303,11 @@ function createForm(response){
 	}
 	if(response.element_data.text){
 		text1.value = response.element_data.text.text1;
-		text2.value = response.element_data.text.text2;
+		if(response.element_data.text.text2)
+			text2.value = response.element_data.text.text2;
+		else
+			document.getElementById("form-text-section-text2").style.display="none";	
+
 		if(response.element_data.text.text3)
 			text3.value = response.element_data.text.text3;
 		else
@@ -470,7 +474,8 @@ function validateForm(){
 		}
 		if(elementData.element_data.text){
 			elementData.element_data.text.text1 = text1.value;
-			elementData.element_data.text.text2 = text2.value;
+			if(elementData.element_data.text.text2)
+				elementData.element_data.text.text2 = text2.value;
 			if(elementData.element_data.text.text3)
 				elementData.element_data.text.text3 = text3.value;
 		}
