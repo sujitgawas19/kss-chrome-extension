@@ -27,6 +27,6 @@
        "js": ["copy_product_id_script.js"]
       }
     ],
-    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-    "web_accessible_resources" : ["form_popup.html", "form_validation.js", "edit-enabled-section.html", "publish_section.html", "confirmation_popup.html", "injected.js"]
+    "content_security_policy": "script-src 'self' https://ajax.googleapis.com; 'unsafe-eval'; object-src 'self'",
+    "web_accessible_resources" : ["form_popup.html", "form_validation.js", "edit-enabled-section.html", "publish_section.html", "confirmation_popup.html", "injected.js", "size_chart_popup.html"]
   }

@@ -70,3 +70,12 @@ function executeDraftPageScript(){
 		}
 	});	
 }
+
+function insertSizeChartConfigJS(){
+	chrome.tabs.executeScript({
+		file: 'size_chart_config.js'
+	});
+	// chrome.tabs.executeScript({
+	// 	file: 'jquery.js'
+	// });
+}

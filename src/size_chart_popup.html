@@ -1,0 +1,200 @@
+<style type="text/css">
+	.custom-uploader{
+	flex: 1;
+    border: 3px dashed #c5c5c5;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    margin-right: 2em;
+}
+
+.custom-uploader button{
+    display: block;
+    width: 100%;
+    padding: 2.5em 1.5em;
+    background-color: transparent;
+    border: 0;
+    height: auto;
+    cursor: pointer;
+    color: #9c9c9c;
+    font-weight: bold;
+}
+
+.custom-uploader button:active,.custom-uploader button:focus{
+	outline: 0;
+}
+
+.uploader-preview{
+	flex: 0.7;
+    border-radius: 4px;
+    object-fit: cover;
+    height: 100%;
+}
+
+.uploader-preview.portrait img{
+    width: 150px;
+}
+
+.uploader-preview.landscape img{
+    width: 200px;
+}
+
+.flex-row{
+    justify-content: center;
+    display: flex;
+    align-items: flex-start;
+}
+
+.align-center{
+	text-align: center;
+}
+
+.existing-img{
+	flex: 0.5;
+}
+
+.existing-img img{
+	width: 150px;
+}
+
+.cms-form label{
+	font-size: 0.9rem;
+}
+
+.delete-img:hover{
+	text-decoration: underline;
+}
+
+.image-loader{
+	width: 150px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-loader .fas{
+	font-size: 1.8em;
+    color: #e8bb49;
+}
+
+.img-name{
+	word-break: break-all;
+	width: 200px;
+}
+
+</style>
+
+<div class="modal fade" id="form_popup" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="formModalLabel">Edit - Size Charts</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<div class="text-center">
+      		<label id="error-msg-main" class="text-danger" style="display: none;">Please complete all required fields.</label>
+      	</div>
+      	<form class="cms-form">
+      		<div id="form-brand-section">
+				<label>Select Brand, Gender and subtype</label>
+				<div class="row">
+					<div class="col-3">
+						<select id="brands" class="form-control">
+						  
+						</select>
+					</div>
+					<div class="col-3">
+						<select id="gender" class="form-control">
+						  
+						</select>
+					</div>
+					<div class="col-3">
+						<select id="subtype" class="form-control">
+						  
+						</select>
+					</div>
+					<div class="col-3">
+						<button type="button" class="btn btn-lg btn-primary" id="submit-button">Apply
+				        </button>
+					</div>
+				</div>
+      		</div>
+		  	<div id="form-image-section">
+
+				<div class="form-group my-4" id="port_img_section">
+					<label id="port_img_label">Mobile View <!-- <i id="port_img_tooltip" class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Max File size is 300kb and Min Resolution is 1200*933"></i> --> <span id="portrait_img_config"> (Resolution : 1234x933; File size: 250Kb)</span> </label>
+					<div class="flex-row my-4 flex-column flex-sm-row">
+						<div class="align-items-center d-flex flex-column existing-img">
+							<img id="portrait_existing" src="" class="">
+							<div id="portrait_img_loader" class="image-loader">
+								<i class="fas fa-circle-notch fa-spin fa-lg"></i>
+							</div>
+							<div class="font-weight-bold pt-1">Existing image</div>
+						</div>
+						<div class="text-center">
+							<div class="custom-uploader portrait-uploader">
+								<button onclick="document.getElementById('form-popup-portrait-img').click()">Browse for a file to upload</button>
+							</div>
+							<label id="portrait_img_error" style="display: none; color: red"></label>
+						</div>
+						<input class="form-control" type="file" name="port_img" accept="image/jpeg,image/gif" id="form-popup-portrait-img" style="display: none" required>
+						<div class="d-none uploader-preview portrait img-info">
+							<div class="justify-between align-items-start d-flex">
+								<img id="portrait_preview" src="">
+								<div class="img-wrapper ml-3">
+									<p class="img-name font-weight-bold text-dark" id="port_file_name"></p>
+									<span class="delete-img font-weight-bold text-danger cursor-pointer" id="remove_portrait_image">Remove</span>
+								</div>
+							</div>
+							<!-- <p class="no-img text-center font-weight-bold" id="port_no_image">No image selected</p> -->
+						</div>
+					</div>
+				</div>
+				<div class="form-group my-4" id="landscape_img_section">
+					<label>Desktop view <!-- <i class="fas fa-info-circle" id="landscape_img_tooltip" data-toggle="tooltip" data-placement="top" title="Max File size is 300kb and Min Resolution is 2000*700"></i> --> <span id="landscape_img_config"> (Resolution : 1234x700; File size: 250Kb)</span> </label>
+					<div class="flex-row my-4 flex-column flex-sm-row">
+						<div class="align-items-center d-flex flex-column existing-img">
+							<img class="" id="landscape_existing" src="" style="width: 200px;">
+							<div id="landscape_img_loader" class="image-loader">
+								<i class="fas fa-circle-notch fa-spin fa-lg"></i>
+							</div>
+							<div class="font-weight-bold pt-1">Existing image</div>
+						</div>
+						<div class="text-center">
+							<div class="custom-uploader landscape-uploader">
+								<button onclick="document.getElementById('form-popup-landscape-img').click()">Browse for a file to upload</button>
+							</div>
+							<label id="landscape_img_error" style="display: none; color: red"></label>
+						</div>
+						<input class="form-control" type="file" name="landscape_img" accept="image/jpeg,image/gif" id="form-popup-landscape-img" style="display: none" required>
+						<div class="d-none uploader-preview landscape img-info-land">
+							<div class="justify-between align-items-start d-flex">
+								<img id="landscape_preview" src="">
+								<div class="img-wrapper ml-3">
+									<p class="img-name font-weight-bold text-dark" id="land_file_name"></p>
+									<span class="delete-img font-weight-bold text-danger cursor-pointer" id="remove_landscape_image">Remove</span>
+								</div>
+							</div>
+							<!-- <p class="no-img text-center font-weight-bold" id="land_no_image">No image selected</p> -->
+						</div>
+					</div>
+				</div>
+		  	</div>
+      	</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-lg btn-light" data-dismiss="modal" id="close-button">Discard</button>
+        <button type="button" class="btn btn-lg btn-primary" id="submit-button">Save changes
+        	<i class="fas fa-circle-notch fa-spin fa-lg ml-2 d-none" id="submit-button-loader"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+	<button style="display: none;" data-toggle="modal" data-target="#form_popup" id="modal-trigger-button"></button>
+</div>

@@ -26,3 +26,10 @@ chrome.runtime.onMessage.addListener(
       console.log("message recieved", request);
       sendResponse({farewell: "goodbye"});
 });
+
+size_chart_btn = document.getElementById("size-chart-btn");
+
+size_chart_btn.addEventListener('click', function(e){
+  console.log("btn clicked");
+  bgPage.insertSizeChartConfigJS();
+})
