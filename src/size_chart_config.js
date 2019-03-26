@@ -1,7 +1,19 @@
 console.log("size chart config js");
 
-getFormTemplate();
-fetchFacets();
+
+if(isLoggedInUser()){
+	getFormTemplate();
+	fetchFacets();
+}
+else{
+	alert("You are not logged in to the site. Please login to enable editing the elements and reload the page.");
+	var url = window.location.href.split("#")[0] + '#/account';
+    window.location = url;
+}
+
+
+
+
 // fetchBrands();
 // fetchSubType();
 // fetchGender();
@@ -38,156 +50,6 @@ function removeUpdateElementModal(){
 	}
 }
 
-// function fetchBrands(){
-// 	console.log("inside fetch facets");
-// 	var xhttp = new XMLHttpRequest();
-// 	xhttp.onreadystatechange = function() {
-// 		if (this.readyState == 4){
-// 			if(this.status == 200){
-// 				// facets = JSON.parse(this.responseText);
-// 				// populateFacets();
-// 				brands = JSON.parse(this.responseText);
-// 				brands = brands.data.facet_values;
-// 				var ele = document.getElementById('brands');
-// 				ele.innerHTML = '';
-// 		        for (var i = 0; i < brands.length; i++) {
-// 		            // POPULATE SELECT ELEMENT WITH JSON.
-// 		            ele.innerHTML =  ele.innerHTML +
-// 		                '<option value="' + brands[i]['facet_value'] + '">' + brands[i]['display_name'] + '</option>';
-// 		        }
-// 				listenToApplyFacets();
-// 				console.log("facets ==>", facets);	
-// 			}
-// 			else{				
-//                 if(this.status == 401){
-//                 	userLogout();
-//                 	window.location.reload();
-//                 }
-//                 else if(this.status == 403){
-//                 	setTimeout(()=>{
-//                 		alert("You do not have permissions to edit home page elements. Please ask the admin to grant permissions.");	
-//                 	},100);  
-//                 }
-//                 else{
-//      //            	setTimeoutVariable();
-// 					// let element = document.querySelector(".kss-alert");
-// 					// element.innerHTML ='Failed to fetch the element data';
-// 	    //             element.classList.add('kss-alert--failure');
-// 	    //             element.classList.add('is-open');
-//                 }
-// 			}
-// 		}
-// 	};
-	
-// 	// var url = 'https://demo8558685.mockable.io/size_config';
-// 	var url =  "/api/rest/v1/facets/product_brand"
-// 	xhttp.open("GET", url , true);
-// 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
-// 	xhttp.setRequestHeader("Content-Type", "application/json");
-// 	xhttp.setRequestHeader("Accept", "application/json");
-// 	xhttp.send();
-// }
-
-// function fetchGender(){
-// 	console.log("inside fetch facets");
-// 	var xhttp = new XMLHttpRequest();
-// 	xhttp.onreadystatechange = function() {
-// 		if (this.readyState == 4){
-// 			if(this.status == 200){
-// 				// facets = JSON.parse(this.responseText);
-// 				// populateFacets();
-// 				genders = JSON.parse(this.responseText);
-// 				genders = genders.data.facet_values;
-// 				var ele = document.getElementById('gender');
-// 				ele.innerHTML = '';
-// 		        for (var i = 0; i < genders.length; i++) {
-// 		            // POPULATE SELECT ELEMENT WITH JSON.
-// 		            ele.innerHTML =  ele.innerHTML +
-// 		                '<option value="' + genders[i]['facet_value'] + '">' + genders[i]['display_name'] + '</option>';
-// 		        }
-// 				listenToApplyFacets();
-// 				console.log("facets ==>", facets);	
-// 			}
-// 			else{				
-//                 if(this.status == 401){
-//                 	userLogout();
-//                 	window.location.reload();
-//                 }
-//                 else if(this.status == 403){
-//                 	setTimeout(()=>{
-//                 		alert("You do not have permissions to edit home page elements. Please ask the admin to grant permissions.");	
-//                 	},100);  
-//                 }
-//                 else{
-//      //            	setTimeoutVariable();
-// 					// let element = document.querySelector(".kss-alert");
-// 					// element.innerHTML ='Failed to fetch the element data';
-// 	    //             element.classList.add('kss-alert--failure');
-// 	    //             element.classList.add('is-open');
-//                 }
-// 			}
-// 		}
-// 	};
-	
-// 	// var url = 'https://demo8558685.mockable.io/size_config';
-// 	var url = "/api/rest/v1/facets/product_gender"
-// 	xhttp.open("GET", url , true);
-// 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
-// 	xhttp.setRequestHeader("Content-Type", "application/json");
-// 	xhttp.setRequestHeader("Accept", "application/json");
-// 	xhttp.send();
-// }
-
-// function fetchSubType(){
-// 	console.log("inside fetch facets");
-// 	var xhttp = new XMLHttpRequest();
-// 	xhttp.onreadystatechange = function() {
-// 		if (this.readyState == 4){
-// 			if(this.status == 200){
-// 				// facets = JSON.parse(this.responseText);
-// 				// populateFacets();
-// 				subtypes = JSON.parse(this.responseText);
-// 				subtypes = subtypes.data.facet_values;
-// 				var ele = document.getElementById('subtype');
-// 				ele.innerHTML = '';
-// 		        for (var i = 0; i < subtypes.length; i++) {
-// 		            // POPULATE SELECT ELEMENT WITH JSON.
-// 		            ele.innerHTML =  ele.innerHTML +
-// 		                '<option value="' + subtypes[i]['facet_value'] + '">' + subtypes[i]['display_name'] + '</option>';
-// 		        }
-// 				listenToApplyFacets();
-// 				console.log("facets ==>", facets);	
-// 			}
-// 			else{				
-//                 if(this.status == 401){
-//                 	userLogout();
-//                 	window.location.reload();
-//                 }
-//                 else if(this.status == 403){
-//                 	setTimeout(()=>{
-//                 		alert("You do not have permissions to edit home page elements. Please ask the admin to grant permissions.");	
-//                 	},100);  
-//                 }
-//                 else{
-//      //            	setTimeoutVariable();
-// 					// let element = document.querySelector(".kss-alert");
-// 					// element.innerHTML ='Failed to fetch the element data';
-// 	    //             element.classList.add('kss-alert--failure');
-// 	    //             element.classList.add('is-open');
-//                 }
-// 			}
-// 		}
-// 	};
-	
-// 	// var url = 'https://demo8558685.mockable.io/size_config';
-// 	var url = "/api/rest/v1/facets/product_subtype"
-// 	xhttp.open("GET", url , true);
-// 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
-// 	xhttp.setRequestHeader("Content-Type", "application/json");
-// 	xhttp.setRequestHeader("Accept", "application/json");
-// 	xhttp.send();
-// }
-
 function fetchFacets(){
 	console.log("inside fetch facets");
 	var xhttp = new XMLHttpRequest();
@@ -210,11 +72,11 @@ function fetchFacets(){
                 	},100);  
                 }
                 else{
-     //            	setTimeoutVariable();
-					// let element = document.querySelector(".kss-alert");
-					// element.innerHTML ='Failed to fetch the element data';
-	    //             element.classList.add('kss-alert--failure');
-	    //             element.classList.add('is-open');
+                	setTimeoutVariable();
+					let element = document.querySelector(".kss-alert");
+					element.innerHTML ='Failed to fetch Facets';
+	                element.classList.add('kss-alert--failure');
+	                element.classList.add('is-open');
                 }
 			}
 		}
@@ -284,6 +146,21 @@ function addEventListeners(){
 	document.getElementById('remove_landscape_image').addEventListener('click', function(){
 		removeImage('landscape');
 	});
+
+	document.getElementById('brands').addEventListener('change', function(){
+		console.log("brands on change");
+        resetForm();
+	})
+
+	document.getElementById('gender').addEventListener('change', function(){
+		console.log("brands on change");
+        resetForm();
+	})
+
+	document.getElementById('subtype').addEventListener('change', function(){
+		console.log("brands on change");
+        resetForm();
+	})
 }
 
 function populateFacets(){
@@ -401,18 +278,18 @@ function displaySizeChart(){
 	document.getElementById('form-image-section').classList.add('d-block');
 	document.getElementById('modal-footer').classList.add('d-block');
 
-	if(sizeChartData.images.mobile.original){
+	if(sizeChartData.images.mobile){
 		var ele = document.getElementById('mobile_size_chart');
-		ele.innerHTML = "<a href='" + sizeChartData.images.mobile.original + "'  target='_blank'>Existing size chart </a>"
+		ele.innerHTML = "<a href='" + sizeChartData.images.mobile + "'  target='_blank'>Existing size chart </a>"
 	}
 	else{
 		var ele = document.getElementById('mobile_size_chart');
 		ele.innerHTML = "No Existing size chart"
 	}
 
-	if(sizeChartData.images.desktop.original){
+	if(sizeChartData.images.desktop){
 		var ele = document.getElementById('desktop_size_chart');
-		ele.innerHTML = "<a href='" + sizeChartData.images.desktop.original + "'  target='_blank'>Existing size chart </a>"
+		ele.innerHTML = "<a href='" + sizeChartData.images.desktop + "'  target='_blank'>Existing size chart </a>"
 	}
 	else{
 		var ele = document.getElementById('desktop_size_chart');
@@ -454,6 +331,7 @@ function callSaveApi(){
 		console.log("no data to save");
 		document.getElementById('submit-button-loader').classList.add('d-none');
 		document.getElementById('submit-button').classList.remove('disabled');
+		document.getElementById('error-msg-main').innerHTML = "Please upload size charts";
 		document.getElementById('error-msg-main').classList.add('d-block');
 	}
 }
@@ -472,13 +350,20 @@ function saveElement(){
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4) {
 			let element = document.querySelector(".kss-alert");
-			// setTimeoutVariable();
+			setTimeoutVariable();
 			if(this.status == 200){
 				// console.log("request complete");
-				// element.innerHTML = 'Element saved successfully';
-    //            	element.classList.add('kss-alert--success');
-    //             element.classList.add('is-open');
-    //             document.getElementById("close-button").click();
+				var response = JSON.parse(this.responseText);
+				if(response.success){
+					element.innerHTML = 'Size chart saved successfully';
+	               	element.classList.add('kss-alert--success');
+	                element.classList.add('is-open');
+	                resetForm();
+                }
+                else{
+                	document.getElementById('error-msg-main').innerHTML = response.message;
+                	document.getElementById('error-msg-main').classList.add('d-block');
+                }
 			}
 			else{
 				console.log("request failed");				
@@ -492,9 +377,9 @@ function saveElement(){
                 	},100);  
                 }
                 else{
-                	// element.innerHTML ='Failed to save the element';
-	                // element.classList.add('kss-alert--failure');
-	                // element.classList.add('is-open');
+                	element.innerHTML ='Failed to save the element';
+	                element.classList.add('kss-alert--failure');
+	                element.classList.add('is-open');
                 }
 			}
 		// document.getElementsByTagName("body")[0].classList.remove('full-page-loader');
@@ -576,4 +461,31 @@ function removeImage(type){
 		document.getElementsByClassName('img-info-land')[0].classList.remove('d-flex');
 		document.getElementsByClassName('landscape-uploader')[0].classList.add('d-block');
 	}
+}
+
+function setTimeoutVariable() {
+	let element = document.querySelector(".kss-alert");
+
+    kss_alert_timeout = setTimeout(function()
+    {
+        element.classList.remove('is-open', 'kss-alert--success', 'kss-alert--failure', );
+        clearTimeout(kss_alert_timeout);
+    }, 2500);
+}
+
+function userLogout(){
+    document.cookie = "cart_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
+
+function resetForm(){
+	document.getElementById('form-image-section').classList.remove('d-block');
+    document.getElementById('form-image-section').classList.add('d-none');
+    document.getElementById('modal-footer').classList.remove('d-block');
+    document.getElementById('modal-footer').classList.add('d-none');
+    document.getElementById('error-msg-main').classList.remove('d-block');
+    document.getElementById('error-msg-main').classList.add('d-none');
+	document.getElementById('remove_portrait_image').click();
+	document.getElementById('remove_landscape_image').click();
 }
