@@ -141,6 +141,7 @@ function populateFacets(){
 	}
 	console.log("check ==>",brands, genders, subtypes);
 	var ele = document.getElementById('brands');
+		ele.innerHTML = '';
         for (var i = 0; i < brands.length; i++) {
             // POPULATE SELECT ELEMENT WITH JSON.
             ele.innerHTML =  ele.innerHTML +
@@ -148,6 +149,7 @@ function populateFacets(){
         }
 
         ele = document.getElementById('gender');
+        ele.innerHTML = '';
         for (var i = 0; i < genders.length; i++) {
             // POPULATE SELECT ELEMENT WITH JSON.
             ele.innerHTML =  ele.innerHTML +
@@ -155,6 +157,7 @@ function populateFacets(){
         }
 
         ele = document.getElementById('subtype');
+        ele.innerHTML = '';
         for (var i = 0; i < subtypes.length; i++) {
             // POPULATE SELECT ELEMENT WITH JSON.
             ele.innerHTML =  ele.innerHTML +
