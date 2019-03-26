@@ -1,7 +1,11 @@
 console.log("size chart config js");
 
 getFormTemplate();
-fetchFacets();
+// fetchFacets();
+fetchBrands();
+fetchSubType();
+fetchGender();
+
 var facets, brands, genders, subtypes, sizeChartData;
 var domain = window.location.origin;
 var port_img, landscape_img;
@@ -32,6 +36,156 @@ function removeUpdateElementModal(){
 	if(document.body.firstElementChild.classList.contains('update-element-modal')){
 		document.body.firstElementChild.remove();
 	}
+}
+
+function fetchBrands(){
+	console.log("inside fetch facets");
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4){
+			if(this.status == 200){
+				// facets = JSON.parse(this.responseText);
+				// populateFacets();
+				brands = JSON.parse(this.responseText);
+				brands = brands.data.facet_values;
+				var ele = document.getElementById('brands');
+				ele.innerHTML = '';
+		        for (var i = 0; i < brands.length; i++) {
+		            // POPULATE SELECT ELEMENT WITH JSON.
+		            ele.innerHTML =  ele.innerHTML +
+		                '<option value="' + brands[i]['facet_value'] + '">' + brands[i]['display_name'] + '</option>';
+		        }
+				listenToApplyFacets();
+				console.log("facets ==>", facets);	
+			}
+			else{				
+                if(this.status == 401){
+                	userLogout();
+                	window.location.reload();
+                }
+                else if(this.status == 403){
+                	setTimeout(()=>{
+                		alert("You do not have permissions to edit home page elements. Please ask the admin to grant permissions.");	
+                	},100);  
+                }
+                else{
+     //            	setTimeoutVariable();
+					// let element = document.querySelector(".kss-alert");
+					// element.innerHTML ='Failed to fetch the element data';
+	    //             element.classList.add('kss-alert--failure');
+	    //             element.classList.add('is-open');
+                }
+			}
+		}
+	};
+	
+	// var url = 'https://demo8558685.mockable.io/size_config';
+	var url = domain + "/api/rest/v1/facets/product_brand"
+	xhttp.open("GET", url , true);
+	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
+	xhttp.setRequestHeader("Content-Type", "application/json");
+	xhttp.setRequestHeader("Accept", "application/json");
+	xhttp.send();
+}
+
+function fetchGender(){
+	console.log("inside fetch facets");
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4){
+			if(this.status == 200){
+				// facets = JSON.parse(this.responseText);
+				// populateFacets();
+				genders = JSON.parse(this.responseText);
+				genders = genders.data.facet_values;
+				var ele = document.getElementById('gender');
+				ele.innerHTML = '';
+		        for (var i = 0; i < genders.length; i++) {
+		            // POPULATE SELECT ELEMENT WITH JSON.
+		            ele.innerHTML =  ele.innerHTML +
+		                '<option value="' + genders[i]['facet_value'] + '">' + genders[i]['display_name'] + '</option>';
+		        }
+				listenToApplyFacets();
+				console.log("facets ==>", facets);	
+			}
+			else{				
+                if(this.status == 401){
+                	userLogout();
+                	window.location.reload();
+                }
+                else if(this.status == 403){
+                	setTimeout(()=>{
+                		alert("You do not have permissions to edit home page elements. Please ask the admin to grant permissions.");	
+                	},100);  
+                }
+                else{
+     //            	setTimeoutVariable();
+					// let element = document.querySelector(".kss-alert");
+					// element.innerHTML ='Failed to fetch the element data';
+	    //             element.classList.add('kss-alert--failure');
+	    //             element.classList.add('is-open');
+                }
+			}
+		}
+	};
+	
+	// var url = 'https://demo8558685.mockable.io/size_config';
+	var url = domain + "/api/rest/v1/facets/product_gender"
+	xhttp.open("GET", url , true);
+	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
+	xhttp.setRequestHeader("Content-Type", "application/json");
+	xhttp.setRequestHeader("Accept", "application/json");
+	xhttp.send();
+}
+
+function fetchSubType(){
+	console.log("inside fetch facets");
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4){
+			if(this.status == 200){
+				// facets = JSON.parse(this.responseText);
+				// populateFacets();
+				subtypes = JSON.parse(this.responseText);
+				subtypes = subtypes.data.facet_values;
+				var ele = document.getElementById('subtype');
+				ele.innerHTML = '';
+		        for (var i = 0; i < subtypes.length; i++) {
+		            // POPULATE SELECT ELEMENT WITH JSON.
+		            ele.innerHTML =  ele.innerHTML +
+		                '<option value="' + subtypes[i]['facet_value'] + '">' + subtypes[i]['display_name'] + '</option>';
+		        }
+				listenToApplyFacets();
+				console.log("facets ==>", facets);	
+			}
+			else{				
+                if(this.status == 401){
+                	userLogout();
+                	window.location.reload();
+                }
+                else if(this.status == 403){
+                	setTimeout(()=>{
+                		alert("You do not have permissions to edit home page elements. Please ask the admin to grant permissions.");	
+                	},100);  
+                }
+                else{
+     //            	setTimeoutVariable();
+					// let element = document.querySelector(".kss-alert");
+					// element.innerHTML ='Failed to fetch the element data';
+	    //             element.classList.add('kss-alert--failure');
+	    //             element.classList.add('is-open');
+                }
+			}
+		}
+	};
+	
+	// var url = 'https://demo8558685.mockable.io/size_config';
+	var url = domain + "/api/rest/v1/facets/product_subtype"
+	xhttp.open("GET", url , true);
+	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
+	xhttp.setRequestHeader("Content-Type", "application/json");
+	xhttp.setRequestHeader("Accept", "application/json");
+	xhttp.send();
 }
 
 function fetchFacets(){
@@ -73,6 +227,7 @@ function fetchFacets(){
 	var param = "product_brand,product_subtype,product_gender";
 	test = test + encodeURIComponent(JSON.stringify(param))
 	console.log("check test ==>", test);
+
 	var url = 'https://demo8558685.mockable.io/size_config';
 	xhttp.open("GET", url , true);
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
@@ -226,7 +381,7 @@ function callGetSizeChartApi(brand, subtype, gender){
 		}
 	};
 	var url = domain + "/api/rest/v1/get-size-charts?product_brand="+brand+'&product_subtype='+subtype+'&product_gender='+gender;
-	url = "https://demo8558685.mockable.io/size_chart";
+	// url = "https://demo8558685.mockable.io/size_chart";
 	xhttp.open("GET", url , true);
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
 	xhttp.setRequestHeader("Content-Type", "application/json");
