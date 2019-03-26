@@ -1,10 +1,10 @@
 console.log("size chart config js");
 
 getFormTemplate();
-// fetchFacets();
-fetchBrands();
-fetchSubType();
-fetchGender();
+fetchFacets();
+// fetchBrands();
+// fetchSubType();
+// fetchGender();
 
 var facets, brands, genders, subtypes, sizeChartData;
 var domain = window.location.origin;
@@ -38,155 +38,155 @@ function removeUpdateElementModal(){
 	}
 }
 
-function fetchBrands(){
-	console.log("inside fetch facets");
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4){
-			if(this.status == 200){
-				// facets = JSON.parse(this.responseText);
-				// populateFacets();
-				brands = JSON.parse(this.responseText);
-				brands = brands.data.facet_values;
-				var ele = document.getElementById('brands');
-				ele.innerHTML = '';
-		        for (var i = 0; i < brands.length; i++) {
-		            // POPULATE SELECT ELEMENT WITH JSON.
-		            ele.innerHTML =  ele.innerHTML +
-		                '<option value="' + brands[i]['facet_value'] + '">' + brands[i]['display_name'] + '</option>';
-		        }
-				listenToApplyFacets();
-				console.log("facets ==>", facets);	
-			}
-			else{				
-                if(this.status == 401){
-                	userLogout();
-                	window.location.reload();
-                }
-                else if(this.status == 403){
-                	setTimeout(()=>{
-                		alert("You do not have permissions to edit home page elements. Please ask the admin to grant permissions.");	
-                	},100);  
-                }
-                else{
-     //            	setTimeoutVariable();
-					// let element = document.querySelector(".kss-alert");
-					// element.innerHTML ='Failed to fetch the element data';
-	    //             element.classList.add('kss-alert--failure');
-	    //             element.classList.add('is-open');
-                }
-			}
-		}
-	};
+// function fetchBrands(){
+// 	console.log("inside fetch facets");
+// 	var xhttp = new XMLHttpRequest();
+// 	xhttp.onreadystatechange = function() {
+// 		if (this.readyState == 4){
+// 			if(this.status == 200){
+// 				// facets = JSON.parse(this.responseText);
+// 				// populateFacets();
+// 				brands = JSON.parse(this.responseText);
+// 				brands = brands.data.facet_values;
+// 				var ele = document.getElementById('brands');
+// 				ele.innerHTML = '';
+// 		        for (var i = 0; i < brands.length; i++) {
+// 		            // POPULATE SELECT ELEMENT WITH JSON.
+// 		            ele.innerHTML =  ele.innerHTML +
+// 		                '<option value="' + brands[i]['facet_value'] + '">' + brands[i]['display_name'] + '</option>';
+// 		        }
+// 				listenToApplyFacets();
+// 				console.log("facets ==>", facets);	
+// 			}
+// 			else{				
+//                 if(this.status == 401){
+//                 	userLogout();
+//                 	window.location.reload();
+//                 }
+//                 else if(this.status == 403){
+//                 	setTimeout(()=>{
+//                 		alert("You do not have permissions to edit home page elements. Please ask the admin to grant permissions.");	
+//                 	},100);  
+//                 }
+//                 else{
+//      //            	setTimeoutVariable();
+// 					// let element = document.querySelector(".kss-alert");
+// 					// element.innerHTML ='Failed to fetch the element data';
+// 	    //             element.classList.add('kss-alert--failure');
+// 	    //             element.classList.add('is-open');
+//                 }
+// 			}
+// 		}
+// 	};
 	
-	// var url = 'https://demo8558685.mockable.io/size_config';
-	var url = domain + "/api/rest/v1/facets/product_brand"
-	xhttp.open("GET", url , true);
-	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
-	xhttp.setRequestHeader("Content-Type", "application/json");
-	xhttp.setRequestHeader("Accept", "application/json");
-	xhttp.send();
-}
+// 	// var url = 'https://demo8558685.mockable.io/size_config';
+// 	var url =  "/api/rest/v1/facets/product_brand"
+// 	xhttp.open("GET", url , true);
+// 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
+// 	xhttp.setRequestHeader("Content-Type", "application/json");
+// 	xhttp.setRequestHeader("Accept", "application/json");
+// 	xhttp.send();
+// }
 
-function fetchGender(){
-	console.log("inside fetch facets");
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4){
-			if(this.status == 200){
-				// facets = JSON.parse(this.responseText);
-				// populateFacets();
-				genders = JSON.parse(this.responseText);
-				genders = genders.data.facet_values;
-				var ele = document.getElementById('gender');
-				ele.innerHTML = '';
-		        for (var i = 0; i < genders.length; i++) {
-		            // POPULATE SELECT ELEMENT WITH JSON.
-		            ele.innerHTML =  ele.innerHTML +
-		                '<option value="' + genders[i]['facet_value'] + '">' + genders[i]['display_name'] + '</option>';
-		        }
-				listenToApplyFacets();
-				console.log("facets ==>", facets);	
-			}
-			else{				
-                if(this.status == 401){
-                	userLogout();
-                	window.location.reload();
-                }
-                else if(this.status == 403){
-                	setTimeout(()=>{
-                		alert("You do not have permissions to edit home page elements. Please ask the admin to grant permissions.");	
-                	},100);  
-                }
-                else{
-     //            	setTimeoutVariable();
-					// let element = document.querySelector(".kss-alert");
-					// element.innerHTML ='Failed to fetch the element data';
-	    //             element.classList.add('kss-alert--failure');
-	    //             element.classList.add('is-open');
-                }
-			}
-		}
-	};
+// function fetchGender(){
+// 	console.log("inside fetch facets");
+// 	var xhttp = new XMLHttpRequest();
+// 	xhttp.onreadystatechange = function() {
+// 		if (this.readyState == 4){
+// 			if(this.status == 200){
+// 				// facets = JSON.parse(this.responseText);
+// 				// populateFacets();
+// 				genders = JSON.parse(this.responseText);
+// 				genders = genders.data.facet_values;
+// 				var ele = document.getElementById('gender');
+// 				ele.innerHTML = '';
+// 		        for (var i = 0; i < genders.length; i++) {
+// 		            // POPULATE SELECT ELEMENT WITH JSON.
+// 		            ele.innerHTML =  ele.innerHTML +
+// 		                '<option value="' + genders[i]['facet_value'] + '">' + genders[i]['display_name'] + '</option>';
+// 		        }
+// 				listenToApplyFacets();
+// 				console.log("facets ==>", facets);	
+// 			}
+// 			else{				
+//                 if(this.status == 401){
+//                 	userLogout();
+//                 	window.location.reload();
+//                 }
+//                 else if(this.status == 403){
+//                 	setTimeout(()=>{
+//                 		alert("You do not have permissions to edit home page elements. Please ask the admin to grant permissions.");	
+//                 	},100);  
+//                 }
+//                 else{
+//      //            	setTimeoutVariable();
+// 					// let element = document.querySelector(".kss-alert");
+// 					// element.innerHTML ='Failed to fetch the element data';
+// 	    //             element.classList.add('kss-alert--failure');
+// 	    //             element.classList.add('is-open');
+//                 }
+// 			}
+// 		}
+// 	};
 	
-	// var url = 'https://demo8558685.mockable.io/size_config';
-	var url = domain + "/api/rest/v1/facets/product_gender"
-	xhttp.open("GET", url , true);
-	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
-	xhttp.setRequestHeader("Content-Type", "application/json");
-	xhttp.setRequestHeader("Accept", "application/json");
-	xhttp.send();
-}
+// 	// var url = 'https://demo8558685.mockable.io/size_config';
+// 	var url = "/api/rest/v1/facets/product_gender"
+// 	xhttp.open("GET", url , true);
+// 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
+// 	xhttp.setRequestHeader("Content-Type", "application/json");
+// 	xhttp.setRequestHeader("Accept", "application/json");
+// 	xhttp.send();
+// }
 
-function fetchSubType(){
-	console.log("inside fetch facets");
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4){
-			if(this.status == 200){
-				// facets = JSON.parse(this.responseText);
-				// populateFacets();
-				subtypes = JSON.parse(this.responseText);
-				subtypes = subtypes.data.facet_values;
-				var ele = document.getElementById('subtype');
-				ele.innerHTML = '';
-		        for (var i = 0; i < subtypes.length; i++) {
-		            // POPULATE SELECT ELEMENT WITH JSON.
-		            ele.innerHTML =  ele.innerHTML +
-		                '<option value="' + subtypes[i]['facet_value'] + '">' + subtypes[i]['display_name'] + '</option>';
-		        }
-				listenToApplyFacets();
-				console.log("facets ==>", facets);	
-			}
-			else{				
-                if(this.status == 401){
-                	userLogout();
-                	window.location.reload();
-                }
-                else if(this.status == 403){
-                	setTimeout(()=>{
-                		alert("You do not have permissions to edit home page elements. Please ask the admin to grant permissions.");	
-                	},100);  
-                }
-                else{
-     //            	setTimeoutVariable();
-					// let element = document.querySelector(".kss-alert");
-					// element.innerHTML ='Failed to fetch the element data';
-	    //             element.classList.add('kss-alert--failure');
-	    //             element.classList.add('is-open');
-                }
-			}
-		}
-	};
+// function fetchSubType(){
+// 	console.log("inside fetch facets");
+// 	var xhttp = new XMLHttpRequest();
+// 	xhttp.onreadystatechange = function() {
+// 		if (this.readyState == 4){
+// 			if(this.status == 200){
+// 				// facets = JSON.parse(this.responseText);
+// 				// populateFacets();
+// 				subtypes = JSON.parse(this.responseText);
+// 				subtypes = subtypes.data.facet_values;
+// 				var ele = document.getElementById('subtype');
+// 				ele.innerHTML = '';
+// 		        for (var i = 0; i < subtypes.length; i++) {
+// 		            // POPULATE SELECT ELEMENT WITH JSON.
+// 		            ele.innerHTML =  ele.innerHTML +
+// 		                '<option value="' + subtypes[i]['facet_value'] + '">' + subtypes[i]['display_name'] + '</option>';
+// 		        }
+// 				listenToApplyFacets();
+// 				console.log("facets ==>", facets);	
+// 			}
+// 			else{				
+//                 if(this.status == 401){
+//                 	userLogout();
+//                 	window.location.reload();
+//                 }
+//                 else if(this.status == 403){
+//                 	setTimeout(()=>{
+//                 		alert("You do not have permissions to edit home page elements. Please ask the admin to grant permissions.");	
+//                 	},100);  
+//                 }
+//                 else{
+//      //            	setTimeoutVariable();
+// 					// let element = document.querySelector(".kss-alert");
+// 					// element.innerHTML ='Failed to fetch the element data';
+// 	    //             element.classList.add('kss-alert--failure');
+// 	    //             element.classList.add('is-open');
+//                 }
+// 			}
+// 		}
+// 	};
 	
-	// var url = 'https://demo8558685.mockable.io/size_config';
-	var url = domain + "/api/rest/v1/facets/product_subtype"
-	xhttp.open("GET", url , true);
-	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
-	xhttp.setRequestHeader("Content-Type", "application/json");
-	xhttp.setRequestHeader("Accept", "application/json");
-	xhttp.send();
-}
+// 	// var url = 'https://demo8558685.mockable.io/size_config';
+// 	var url = "/api/rest/v1/facets/product_subtype"
+// 	xhttp.open("GET", url , true);
+// 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
+// 	xhttp.setRequestHeader("Content-Type", "application/json");
+// 	xhttp.setRequestHeader("Accept", "application/json");
+// 	xhttp.send();
+// }
 
 function fetchFacets(){
 	console.log("inside fetch facets");
@@ -223,12 +223,15 @@ function fetchFacets(){
 	// console.log("params ==>", params, encodeURIComponent(JSON.stringify(params)));
 	// var url = domain + "/api/rest/v1/facets?type="+encodeURIComponent(JSON.stringify(params));
 	// console.log("check url ==>", url)
-	var test =  domain + "/api/rest/v1/facets?type="
+	console.log("domain ==>", domain);
+	var url =  "/api/rest/v1/facets?type="
 	var param = "product_brand,product_subtype,product_gender";
-	test = test + encodeURIComponent(JSON.stringify(param))
-	console.log("check test ==>", test);
+	url = url + encodeURIComponent(JSON.stringify(param))
+	url = url.replace("%22", ""); 
+	url = url.replace("%22", ""); 
+	console.log("check test ==>", url);
 
-	var url = 'https://demo8558685.mockable.io/size_config';
+	// var url = 'https://demo8558685.mockable.io/size_config';
 	xhttp.open("GET", url , true);
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
 	xhttp.setRequestHeader("Content-Type", "application/json");
@@ -285,7 +288,10 @@ function addEventListeners(){
 
 function populateFacets(){
 	addEventListeners();
-	console.log(facets.data[0].facet_name);
+	console.log(facets.data);
+	brands = '';
+	genders = '';
+	subtypes = '';
 	for(var i = 0; i < facets.data.length; i++){
 		if(facets.data[i].facet_name == "product_brand")
 			brands = facets.data[i].facet_values
@@ -294,6 +300,7 @@ function populateFacets(){
 		if(facets.data[i].facet_name == "product_subtype")
 			subtypes = facets.data[i].facet_values
 	}
+
 	console.log("check ==>",brands, genders, subtypes);
 	var ele = document.getElementById('brands');
 		ele.innerHTML = '';
@@ -380,7 +387,7 @@ function callGetSizeChartApi(brand, subtype, gender){
 			document.getElementById('apply-facets').classList.remove('disabled');
 		}
 	};
-	var url = domain + "/api/rest/v1/get-size-charts?product_brand="+brand+'&product_subtype='+subtype+'&product_gender='+gender;
+	var url = "/api/rest/v1/get-size-charts?product_brand="+brand+'&product_subtype='+subtype+'&product_gender='+gender;
 	// url = "https://demo8558685.mockable.io/size_chart";
 	xhttp.open("GET", url , true);
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
@@ -496,7 +503,7 @@ function saveElement(){
 		document.getElementById('submit-button').classList.remove('disabled');
 		}
 	};
-	var url = domain + '/api/rest/v1/save-sizechart-images';
+	var url = '/api/rest/v1/save-sizechart-images';
 	console.log("save url ==>", url);
 	xhttp.open("POST", url , true);
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
