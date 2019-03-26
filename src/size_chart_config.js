@@ -69,6 +69,10 @@ function fetchFacets(){
 	// console.log("params ==>", params, encodeURIComponent(JSON.stringify(params)));
 	// var url = domain + "/api/rest/v1/facets?type="+encodeURIComponent(JSON.stringify(params));
 	// console.log("check url ==>", url)
+	var test =  domain + "/api/rest/v1/facets?type="
+	var param = "product_brand,product_subtype,product_gender";
+	test = test + encodeURIComponent(JSON.stringify(param))
+	console.log("check test ==>", test);
 	var url = 'https://demo8558685.mockable.io/size_config';
 	xhttp.open("GET", url , true);
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
