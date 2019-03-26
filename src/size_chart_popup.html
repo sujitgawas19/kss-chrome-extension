@@ -89,50 +89,48 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="formModalLabel">Edit - Size Charts</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-      	<div class="text-center">
-      		<label id="error-msg-main" class="text-danger" style="display: none;">Please complete all required fields.</label>
-      	</div>
       	<form class="cms-form">
       		<div id="form-brand-section">
 				<label>Select Brand, Gender and subtype</label>
 				<div class="row">
 					<div class="col-3">
-						<select id="brands" class="form-control">
+						<select id="brands" class="form-control" required>
 						  
 						</select>
 					</div>
 					<div class="col-3">
-						<select id="gender" class="form-control">
+						<select id="gender" class="form-control" required>
 						  
 						</select>
 					</div>
 					<div class="col-3">
-						<select id="subtype" class="form-control">
+						<select id="subtype" class="form-control" required>
 						  
 						</select>
 					</div>
 					<div class="col-3">
-						<button type="button" class="btn btn-lg btn-primary" id="submit-button">Apply
+						<button type="button" class="btn btn-lg btn-primary" id="apply-facets">Apply
+							<i class="fas fa-circle-notch fa-spin fa-lg ml-2 d-none" id="apply-button-loader"></i>
 				        </button>
 					</div>
 				</div>
       		</div>
-		  	<div id="form-image-section">
+		  	<div id="form-image-section" class="d-none">
 
 				<div class="form-group my-4" id="port_img_section">
-					<label id="port_img_label">Mobile View <!-- <i id="port_img_tooltip" class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Max File size is 300kb and Min Resolution is 1200*933"></i> --> <span id="portrait_img_config"> (Resolution : 1234x933; File size: 250Kb)</span> </label>
+					<label id="port_img_label">Mobile View <!-- <i id="port_img_tooltip" class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Max File size is 300kb and Min Resolution is 1200*933"></i> --> <!-- <span id="portrait_img_config"> (Resolution : 1234x933; File size: 250Kb)</span> </label> -->
 					<div class="flex-row my-4 flex-column flex-sm-row">
 						<div class="align-items-center d-flex flex-column existing-img">
 							<img id="portrait_existing" src="" class="">
-							<div id="portrait_img_loader" class="image-loader">
+							<!-- <div id="portrait_img_loader" class="image-loader">
 								<i class="fas fa-circle-notch fa-spin fa-lg"></i>
-							</div>
-							<div class="font-weight-bold pt-1">Existing image</div>
+							</div> -->
+							<div class="font-weight-bold pt-1" id="mobile_size_chart">Existing image</div>
 						</div>
 						<div class="text-center">
 							<div class="custom-uploader portrait-uploader">
@@ -154,14 +152,14 @@
 					</div>
 				</div>
 				<div class="form-group my-4" id="landscape_img_section">
-					<label>Desktop view <!-- <i class="fas fa-info-circle" id="landscape_img_tooltip" data-toggle="tooltip" data-placement="top" title="Max File size is 300kb and Min Resolution is 2000*700"></i> --> <span id="landscape_img_config"> (Resolution : 1234x700; File size: 250Kb)</span> </label>
+					<label>Desktop view <!-- <i class="fas fa-info-circle" id="landscape_img_tooltip" data-toggle="tooltip" data-placement="top" title="Max File size is 300kb and Min Resolution is 2000*700"></i> --> <!-- <span id="landscape_img_config"> (Resolution : 1234x700; File size: 250Kb)</span> </label> -->
 					<div class="flex-row my-4 flex-column flex-sm-row">
 						<div class="align-items-center d-flex flex-column existing-img">
 							<img class="" id="landscape_existing" src="" style="width: 200px;">
-							<div id="landscape_img_loader" class="image-loader">
+							<!-- <div id="landscape_img_loader" class="image-loader">
 								<i class="fas fa-circle-notch fa-spin fa-lg"></i>
-							</div>
-							<div class="font-weight-bold pt-1">Existing image</div>
+							</div> -->
+							<div class="font-weight-bold pt-1" id="desktop_size_chart">Existing image</div>
 						</div>
 						<div class="text-center">
 							<div class="custom-uploader landscape-uploader">
@@ -184,8 +182,11 @@
 				</div>
 		  	</div>
       	</form>
+      	<div class="text-center">
+      		<label id="error-msg-main" class="text-danger" style="display: none;">Please upload size charts</label>
+      	</div>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer d-none" id="modal-footer">
         <button type="button" class="btn btn-lg btn-light" data-dismiss="modal" id="close-button">Discard</button>
         <button type="button" class="btn btn-lg btn-primary" id="submit-button">Save changes
         	<i class="fas fa-circle-notch fa-spin fa-lg ml-2 d-none" id="submit-button-loader"></i>
