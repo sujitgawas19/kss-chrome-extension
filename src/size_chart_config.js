@@ -61,7 +61,14 @@ function fetchFacets(){
 				listenToApplyFacets();
 				console.log("facets ==>", facets);	
 			}
-			else{				
+			else{
+				console.log("inside error block");
+				if(document.getElementById('close-modal')){
+					console.log("closing modal");
+					// removeUpdateElementModal();
+			    	// document.getElementById('close-modal').click();
+				}
+
                 if(this.status == 401){
                 	userLogout();
                 	window.location.reload();
@@ -355,9 +362,14 @@ function saveElement(){
 				// console.log("request complete");
 				var response = JSON.parse(this.responseText);
 				if(response.success){
-					element.innerHTML = 'Size chart saved successfully';
-	               	element.classList.add('kss-alert--success');
-	                element.classList.add('is-open');
+					// element.innerHTML = 'Size chart saved successfully';
+	    	        // element.classList.add('kss-alert--success');
+	        	    // element.classList.add('is-open');
+	        	    document.getElementById('success-msg-main').classList.add('d-block')
+	        	    setTimeout(()=>{
+	        	    	document.getElementById('success-msg-main').classList.remove('d-block');
+	        	    	document.getElementById('success-msg-main').classList.add('d-none')
+	        	    },3000)
 	                resetForm();
                 }
                 else{
