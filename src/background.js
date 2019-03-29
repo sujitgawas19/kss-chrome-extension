@@ -79,3 +79,9 @@ function insertSizeChartConfigJS(){
 	// 	file: 'jquery.js'
 	// });
 }
+
+function insertRankingSheetJS(){
+	chrome.tabs.executeScript({
+		file: 'ranking_sheet_upload.js'
+	});
+}
