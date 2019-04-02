@@ -86,29 +86,48 @@ function addEventListener(){
 	var csv_file = document.getElementById('form-csv-upload');
 	csv_file.addEventListener('change', function(){
 		console.log("csv file uploaded");
-		console.log("check ==>", csv_file.files)
+		console.log("check ==>", csv_file.files);
+		document.getElementById('modal-footer').classList.add('d-block');
+		document.getElementById('csv_file_preview').classList.remove('d-none');
+		document.getElementById('csv_file_name').innerHTML = csv_file.files[0].name;
+		document.getElementById('csv_uploader').classList.add('d-none');
 	})
 
 	document.getElementById('submit-button').addEventListener('click', function(){
 		console.log("upload file clicked");
+		document.getElementById('submit-button-loader').classList.remove('d-none');
+		document.getElementById('submit-button').classList.add('disabled');
 		uploadCSV();
 	})
+
+	document.getElementById('remove_csv_file').addEventListener('click', function(){
+		removeCSVFile();
+	});
 }
 
 function uploadCSV(){
 	var xhttp = new XMLHttpRequest();
-	// xhttp.onreadystatechange = function() {
-	// 	if (this.readyState == 4) {
-	// 		let element = document.querySelector(".kss-alert");
-	// 		setTimeoutVariable();
-	// 		if(this.status == 200){
-	// 			// console.log(this.responseText)
-	// 		}
-	// 	}
-	// };
-	xhttp.addEventListener('load', function () {
-        console.log('Response:', this.responseText);
-    });
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4) {
+			let element = document.querySelector(".kss-alert");
+			setTimeoutVariable();
+			if(this.status == 200){
+				element.innerHTML = 'Ranking CSV uploaded successfully';
+               	element.classList.add('kss-alert--success');
+                element.classList.add('is-open');
+                document.getElementById("close-button").click();
+			}
+			else{
+				element.innerHTML ='Failed to upload the CSV';
+                element.classList.add('kss-alert--failure');
+	            element.classList.add('is-open');
+                document.getElementById("close-button").click();
+			}
+
+			document.getElementById('submit-button-loader').classList.add('d-none');
+			document.getElementById('submit-button').classList.remove('disabled');
+		}
+	};
     
 	var csv=document.getElementById('form-csv-upload');
 	var formData = new FormData();
@@ -121,4 +140,11 @@ function uploadCSV(){
 	xhttp.setRequestHeader("Accept", "application/json");
 	// xhttp.setRequestHeader("Content-type", "multipart/form-data");
 	xhttp.send(formData);
+}
+
+function removeCSVFile(){
+	document.getElementById('form-csv-upload').value = "";
+	document.getElementById('csv_uploader').classList.remove('d-none');
+	document.getElementsByClassName('img-info')[0].classList.add('d-none');
+	document.getElementById('csv_file_preview').classList.add('d-none');
 }

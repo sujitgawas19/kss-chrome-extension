@@ -99,21 +99,27 @@
       <div class="modal-body">
       	<form class="cms-form">
       		<div id="upload-csv-section">
-				<div class="text-center">
-					<div class="custom-uploader portrait-uploader">
-						<button onclick="document.getElementById('form-csv-upload').click()">Browse for a file to upload</button>
-					</div>
-					<input class="form-control" type="file" name="csv_file" id="form-csv-upload" style="display: none" required>
-						<div class="d-none uploader-preview portrait img-info">
-				</div>
-      		</div>
-
+  				  <div class="text-center">
+    					<div class="custom-uploader portrait-uploader" id="csv_uploader">
+    						<button onclick="document.getElementById('form-csv-upload').click()">Browse for a file to upload</button>
+    					</div>
+    					<input class="form-control" type="file" accept=".csv" name="csv_file" id="form-csv-upload" style="display: none" required>
+              <div class="d-none uploader-preview portrait img-info" id="csv_file_preview">
+                <div class="justify-between align-items-start d-flex">
+                  <div class="img-wrapper ml-3">
+                    <p class="img-name font-weight-bold text-dark" id="csv_file_name"></p>
+                    <span class="delete-img font-weight-bold text-danger cursor-pointer" id="remove_csv_file">Remove</span>
+                  </div>
+                </div>
+              </div>
+        		</div>
+          </div>
       	</form>
       	<div class="text-center">
       		<label id="error-msg-main" class="text-danger" style="display: none;">Please upload size charts</label>
       	</div>
       </div>
-      <div class="modal-footer" id="modal-footer">
+      <div class="modal-footer d-none" id="modal-footer">
         <button type="button" class="btn btn-lg btn-light" data-dismiss="modal" id="close-button">Discard</button>
         <button type="button" class="btn btn-lg btn-primary" id="submit-button">Upload
         	<i class="fas fa-circle-notch fa-spin fa-lg ml-2 d-none" id="submit-button-loader"></i>

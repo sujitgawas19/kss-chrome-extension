@@ -35,10 +35,18 @@ size_chart_btn.addEventListener('click', function(e){
   window.close();
 })
 
-ranking_csv_btn = document.getElementById("ranking-csv-btn");
+ranking_csv_btn = document.getElementById("upload-ranking-csv-btn");
 
 ranking_csv_btn.addEventListener('click', function(e){
   console.log("btn clicked");
   bgPage.insertRankingSheetJS();
+  window.close();
+})
+
+download_ranking_csv_btn = document.getElementById("download-ranking-csv-btn");
+
+download_ranking_csv_btn.addEventListener('click', function(e){
+  console.log("btn clicked");
+  bgPage.insertRankingSheetDownloadJS();
   window.close();
 })

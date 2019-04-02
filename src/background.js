@@ -85,3 +85,9 @@ function insertRankingSheetJS(){
 		file: 'ranking_sheet_upload.js'
 	});
 }
+
+function insertRankingSheetDownloadJS(){
+	chrome.tabs.executeScript({
+		file: 'ranking_sheet_download.js'
+	});
+}
