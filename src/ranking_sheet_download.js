@@ -15,10 +15,10 @@ function downloadCSV(){
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4) {
 			console.log("response ==>", this.responseText);
-			saveData(this.responseText, "rank-csv.csv");
 			let element = document.querySelector(".kss-alert");
 			setTimeoutVariable();
 			if(this.status == 200){
+                saveData(this.responseText, "rank-csv.csv");
 				element.innerHTML = 'Ranking CSV downloaded successfully';
                	element.classList.add('kss-alert--success');
                 element.classList.add('is-open');
@@ -28,7 +28,6 @@ function downloadCSV(){
 				element.innerHTML ='Failed to download the CSV';
                 element.classList.add('kss-alert--failure');
 	            element.classList.add('is-open');
-                document.getElementById("close-button").click();
 			}
 		}
 	};
@@ -40,19 +39,21 @@ function downloadCSV(){
 	xhttp.send();
 }
 
-const saveData = (function () {
+// const saveData = (function () {
+function saveData(data, fileName){
     const a = document.createElement("a");
     document.body.appendChild(a);
     a.style = "display: none";
-    return function (data, fileName) {
-        const blob = new Blob([data], {type: "octet/stream"}),
-            url = window.URL.createObjectURL(blob);
-        a.href = url;
-        a.download = fileName;
-        a.click();
-        window.URL.revokeObjectURL(url);
-    };
-}());
+    // return function (data, fileName) {
+    const blob = new Blob([data], {type: "octet/stream"}),
+    url = window.URL.createObjectURL(blob);
+    a.href = url;
+    a.download = fileName;
+    a.click();
+    window.URL.revokeObjectURL(url);
+    // };
+  }
+// }());
 
 function getCookie(cname) {
     var name = cname + "=";

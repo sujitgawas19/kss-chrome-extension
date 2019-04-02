@@ -87,7 +87,7 @@ function addEventListener(){
 	csv_file.addEventListener('change', function(){
 		console.log("csv file uploaded");
 		console.log("check ==>", csv_file.files);
-		document.getElementById('modal-footer').classList.add('d-block');
+		document.getElementById('modal-footer').classList.remove('d-none');
 		document.getElementById('csv_file_preview').classList.remove('d-none');
 		document.getElementById('csv_file_name').innerHTML = csv_file.files[0].name;
 		document.getElementById('csv_uploader').classList.add('d-none');
@@ -147,4 +147,5 @@ function removeCSVFile(){
 	document.getElementById('csv_uploader').classList.remove('d-none');
 	document.getElementsByClassName('img-info')[0].classList.add('d-none');
 	document.getElementById('csv_file_preview').classList.add('d-none');
+	document.getElementById('modal-footer').classList.add('d-none');
 }
