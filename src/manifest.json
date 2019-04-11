@@ -1,6 +1,6 @@
  {
     "name": "KSS-Admin",
-    "version": "6.3.2",
+    "version": "6.3.4",
     "description": "Extension for updating KSS Home-page Elements",
     "manifest_version": 2,
      "background": {
@@ -28,5 +28,5 @@
       }
     ],
     "content_security_policy": "script-src 'self' https://ajax.googleapis.com; 'unsafe-eval'; object-src 'self'",
-    "web_accessible_resources" : ["form_popup.html", "form_validation.js", "edit-enabled-section.html", "publish_section.html", "confirmation_popup.html", "injected.js", "size_chart_popup.html", "ranking_sheet_upload.html"]
+    "web_accessible_resources" : ["form_popup.html", "form_validation.js", "edit-enabled-section.html", "publish_section.html", "confirmation_popup.html", "injected.js", "size_chart_popup.html", "ranking_sheet_upload.html", "edit_banners_popup.html"]
   }

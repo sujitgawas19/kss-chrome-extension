@@ -23,6 +23,8 @@ var domain = window.location.origin;
 
 var link, link_error, bg_color, bg_color_error, text_color, text2_color;
 
+var banner_length, ng_banners_btn;
+
 console.log("domain ==>", domain);
 
 if(isLoggedInUser()){
@@ -40,12 +42,12 @@ else{
 function findEditableElements(logged_in){
 	setTimeout(()=>{
 		var elements = document.getElementsByClassName('kss-extension');
-		console.log("findEditableElements ==>", logged_in, elements.length);
+		// console.log("findEditableElements ==>", logged_in, elements.length);
 		for(var i = 0; i < elements.length; i++){
 			var btn = document.createElement("BUTTON");
 			btn.setAttribute("class", "update-element-btn btn btn-danger btn-lg pulsing");
 			if(logged_in){
-				if(elements[i].getAttribute("static_element-display_type") == "Banner")
+				if(elements[i].getAttribute("static_element-display_type") == "BannerTest")
 					btn.setAttribute("style", "visibility:visible;width:auto;position:relative;top: -34vw;left: 90%;");
 				else if(elements[i].getAttribute("static_element-display_type") == "Section")
 					btn.setAttribute("style", "width:auto;position:absolute;top:-15px;right:0");			
@@ -53,7 +55,7 @@ function findEditableElements(logged_in){
 					btn.setAttribute("style", "width:auto;position:absolute;z-index: 1;top: 10px;right:0");			
 			}
 			else{
-				if(elements[i].getAttribute("static_element-display_type") == "Banner")
+				if(elements[i].getAttribute("static_element-display_type") == "BannerTest")
 					btn.setAttribute("style", "visibility:visible;width:auto;position:relative;top: -34vw;left: 90%;");
 				else if(elements[i].getAttribute("static_element-display_type") == "Section")
 					btn.setAttribute("style", "width:auto;position:absolute;top:-15px;right:0");
@@ -63,14 +65,92 @@ function findEditableElements(logged_in){
 				btn.setAttribute("class", "update-element-btn btn btn-danger btn-lg pulsing d-none");
 			}
 			var btn_name = "Edit "+elements[i].getAttribute("static_element-display_type")+ " " +elements[i].getAttribute("static_element-id");
-			console.log("btn name ==>", btn_name);
+			// console.log("btn name ==>", btn_name);
 			var text = document.createTextNode(btn_name);
 			btn.appendChild(text);
 			elements[i].appendChild(btn);
 		}
+		editBanners();
 		addEventListner()
 	},3000);
 }
+
+function editBanners(){
+	ng_banners_btn = document.getElementById("edit_banners_btn");
+	ng_banners_btn.classList.add('d-block');
+	if(ng_banners_btn){
+		banner_length = ng_banners_btn.getAttribute("banner_length");
+		console.log("banner length ==>", banner_length);
+	}
+
+	ng_banners_btn.addEventListener('click', function(){
+		getEditBannerPopup();
+	})
+	// for(var i = 1; parseInt(banner_length)+1; i++){
+	// 	let id = "banner"+i;
+ //        document.getElementById(id).addEventListener('click', function(){
+ //        	console.log("edit banner btn clicked");
+ //        })
+	// }
+}
+
+function getEditBannerPopup(){
+	console.log("inside getEditBannerPopup");
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+	    	removeUpdateElementModal();
+	        var div = document.createElement('div');
+	        div.setAttribute("class", "update-element-modal");
+	        div.innerHTML = this.responseText;
+	        document.body.insertBefore(div, document.body.firstChild);
+	        addBannerButtons()
+	        document.getElementById("modal-trigger-button").click();
+	        document.getElementById("form_popup").classList.add('show');
+	        document.getElementsByClassName("modal-backdrop")[0].classList.add('show');
+	    }
+	};
+	xhttp.open("GET", chrome.extension.getURL("/edit_banners_popup.html"), true);
+	xhttp.send();
+}
+
+function addBannerButtons(){
+	var length = parseInt(banner_length)+1;
+	console.log(length)
+    for (var i = 1; i < length; i++) {
+        ele = document.getElementById('banner-btn-container')
+        ele.innerHTML =  ele.innerHTML + '<button class="btn btn-danger btn-lg" sequence='+i+' id="' +"banner_"+i+'">' + "Banner"+ i  + '</button> <br> <br>';
+    }
+
+    for(var i= 1; i< length; i++) {
+    	let id = "banner_"+i;
+        console.log("id==>", id)
+        document.getElementById(id).addEventListener('click', function(){
+        	console.log("edit banner btn clicked", this.getAttribute("sequence"));
+        	document.getElementById('close-modal-banner-popup').click();
+        	removeUpdateElementModal();
+        	var elements = document.getElementsByClassName("update-element-btn");
+
+	    	for(var j = 0; j<elements.length; j++){
+	    		elements[j].classList.add('disabled');
+	    	}
+	    	ng_banners_btn.classList.add('disabled');
+
+	    	var span = document.createElement('span');
+	    	span.innerHTML = '<i class="fas fa-circle-notch fa-spin fa-lg ml-2"></i>';
+	    	ng_banners_btn.appendChild(span);
+
+        	sequence_id = parseInt(this.getAttribute("sequence"))
+        	static_element_name = "Banner"
+        	static_element_type = 'newbanner';
+	    	static_element_page_slug = 'home';
+	    	setTimeout(()=>{
+	    		fetchElement(sequence_id,ng_banners_btn);		
+	    	},300);        	
+        })
+    }
+}
+
 
 function addEditingEnabledElement(logged_in){
 	var xhttp = new XMLHttpRequest();
@@ -151,6 +231,7 @@ function fetchElement(id, element){
 	    		elements[j].classList.remove('disabled');
 	    	}
 	    	element.removeChild(element.childNodes[1]); 
+	    	element.classList.remove('disabled')
 			// document.getElementsByTagName("body")[0].classList.remove('full-page-loader');
 		}
 	};
@@ -364,6 +445,13 @@ function createForm(response){
 		document.getElementById("form-text-color2-section").style.display="none";
 	}
 
+	if(static_element_type == 'newbanner'){
+		if(response.element_data.display === 0)
+			document.getElementById('display_false').checked = true;
+	}
+	else
+		document.getElementById("form-display-section").style.display="none";
+
 	if(response.images){
 		if(response.images.portrait){
 			var img = new Image();
@@ -464,9 +552,12 @@ function listenToSubmitForm(){
 function validateForm(){
 	console.log("inside validate form");
 	console.log(href.value);
-
+	console.log("Check display ==>", document.querySelector('input[name="display"]:checked').value);
 	if(validateHref() && validateTitle() && validateImgAlt() && validateProducts() && validateTrendingProduct()){
 		console.log("form is valid", elementData);
+		if(static_element_type == 'newbanner')
+			elementData.element_data.display = parseInt(document.querySelector('input[name="display"]:checked').value)
+
 		if(elementData.element_data.image){
 			elementData.element_data.image.href = href.value;
 			elementData.element_data.image.title = title.value;
