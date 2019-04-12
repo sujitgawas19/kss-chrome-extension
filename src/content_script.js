@@ -77,21 +77,14 @@ function findEditableElements(logged_in){
 
 function editBanners(){
 	ng_banners_btn = document.getElementById("edit_banners_btn");
-	ng_banners_btn.classList.add('d-block');
 	if(ng_banners_btn){
+		ng_banners_btn.classList.add('d-block');
 		banner_length = ng_banners_btn.getAttribute("banner_length");
 		console.log("banner length ==>", banner_length);
+		ng_banners_btn.addEventListener('click', function(){
+			getEditBannerPopup();
+		})
 	}
-
-	ng_banners_btn.addEventListener('click', function(){
-		getEditBannerPopup();
-	})
-	// for(var i = 1; parseInt(banner_length)+1; i++){
-	// 	let id = "banner"+i;
- //        document.getElementById(id).addEventListener('click', function(){
- //        	console.log("edit banner btn clicked");
- //        })
-	// }
 }
 
 function getEditBannerPopup(){
