@@ -22,8 +22,8 @@
     },
      "content_scripts": [
       {
-       "matches": ["http://localhost:8000/*/buy*", "https://www.kidsuperstore.in/*/buy*", "https://test.stage.kidsuperstore.in/*/buy*", "https://pre-prod.stage.kidsuperstore.in/*/buy*" ],
-       "run_at": "document_idle",
+       "matches": ["http://localhost:8000/*", "https://www.kidsuperstore.in/*", "https://test.stage.kidsuperstore.in/*", "https://pre-prod.stage.kidsuperstore.in/*" ],
+       "run_at": "document_start",
        "js": ["copy_product_id_script.js"]
       }
     ],
