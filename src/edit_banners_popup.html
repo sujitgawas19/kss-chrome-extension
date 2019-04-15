@@ -1,0 +1,111 @@
+<style type="text/css">
+	.custom-uploader{
+	flex: 1;
+    border: 3px dashed #c5c5c5;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    margin-right: 2em;
+}
+
+.custom-uploader button{
+    display: block;
+    width: 100%;
+    padding: 2.5em 1.5em;
+    background-color: transparent;
+    border: 0;
+    height: auto;
+    cursor: pointer;
+    color: #9c9c9c;
+    font-weight: bold;
+}
+
+.custom-uploader button:active,.custom-uploader button:focus{
+	outline: 0;
+}
+
+.uploader-preview{
+	flex: 0.7;
+    border-radius: 4px;
+    object-fit: cover;
+    height: 100%;
+}
+
+.uploader-preview.portrait img{
+    width: 150px;
+}
+
+.uploader-preview.landscape img{
+    width: 200px;
+}
+
+.flex-row{
+    justify-content: center;
+    display: flex;
+    align-items: flex-start;
+}
+
+.align-center{
+	text-align: center;
+}
+
+.existing-img{
+	flex: 0.5;
+}
+
+.existing-img img{
+	width: 150px;
+}
+
+.cms-form label{
+	font-size: 0.9rem;
+}
+
+.delete-img:hover{
+	text-decoration: underline;
+}
+
+.image-loader{
+	width: 150px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-loader .fas{
+	font-size: 1.8em;
+    color: #e8bb49;
+}
+
+.img-name{
+	word-break: break-all;
+	width: 200px;
+}
+.form-control{
+	height: calc(1.5em + .75rem + 8px);
+}
+
+</style>
+
+<div class="modal fade" id="form_popup" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="formModalLabel">Banner List</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-modal-banner-popup">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="banner-btn-container" class="d-flex justify-content-center flex-column align-items-center">
+            
+        </div>
+
+      </div>
+  </div>
+</div>
+</div>
+
+<div>
+	<button style="display: none;" data-toggle="modal" data-target="#form_popup" id="modal-trigger-button"></button>
+</div>
