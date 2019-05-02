@@ -23,7 +23,7 @@ var domain = window.location.origin;
 
 var link, link_error, bg_color, bg_color_error, text_color, text2_color;
 
-var banner_length, ng_banners_btn;
+var banner_length, static_element_btn;
 
 console.log("domain ==>", domain);
 
@@ -76,18 +76,28 @@ function findEditableElements(logged_in){
 }
 
 function editBanners(){
-	ng_banners_btn = document.getElementById("edit_banners_btn");
-	if(ng_banners_btn){
-		ng_banners_btn.classList.add('d-block');
-		banner_length = ng_banners_btn.getAttribute("banner_length");
-		console.log("banner length ==>", banner_length);
-		ng_banners_btn.addEventListener('click', function(){
-			getEditBannerPopup();
-		})
+	static_element_btn = document.getElementsByClassName("static_element_edit_btn");
+	// console.log("static_element_btn ==>", static_element_btn)
+	if(static_element_btn.length){
+		for(var i = 0; i < static_element_btn.length; i++){
+			static_element_btn[i].classList.add('d-block');
+			element_length = static_element_btn[i].getAttribute("static_element_length");
+			list_name = static_element_btn[i].getAttribute("static_element-display_type");
+			element_name = static_element_btn[i].getAttribute("static_element_name");
+			element_type = static_element_btn[i].getAttribute("static_element-type");
+			console.log("banner length ==>", element_length);
+			elementEditButton(static_element_btn[i],element_length, list_name, element_name, element_type)
+		}
 	}
 }
 
-function getEditBannerPopup(){
+ function elementEditButton(element,element_length, list_name, element_name, element_type){
+ 	element.addEventListener('click', function(){
+		getEditBannerPopup(element_length, list_name, element_name, element_type);
+	})
+ }
+
+function getEditBannerPopup(element_length, list_name, element_name, element_type){
 	console.log("inside getEditBannerPopup");
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -97,7 +107,8 @@ function getEditBannerPopup(){
 	        div.setAttribute("class", "update-element-modal");
 	        div.innerHTML = this.responseText;
 	        document.body.insertBefore(div, document.body.firstChild);
-	        addBannerButtons()
+	        addBannerButtons(element_length, list_name, element_name, element_type)
+	        document.getElementById('edit_element_list_popup').innerHTML = list_name + " List" 
 	        document.getElementById("modal-trigger-button").click();
 	        document.getElementById("form_popup").classList.add('show');
 	        document.getElementsByClassName("modal-backdrop")[0].classList.add('show');
@@ -107,12 +118,12 @@ function getEditBannerPopup(){
 	xhttp.send();
 }
 
-function addBannerButtons(){
-	var length = parseInt(banner_length)+1;
+function addBannerButtons(element_length, list_name, element_name, element_type){
+	var length = parseInt(element_length)+1;
 	console.log(length)
     for (var i = 1; i < length; i++) {
         ele = document.getElementById('banner-btn-container')
-        ele.innerHTML =  ele.innerHTML + '<button class="btn btn-danger btn-lg" sequence='+i+' id="' +"banner_"+i+'">' + "Banner"+ i  + '</button> <br> <br>';
+        ele.innerHTML =  ele.innerHTML + '<button class="btn btn-danger btn-lg" sequence='+i+' id="' +"banner_"+i+'">' + element_name + i  + '</button> <br> <br>';
     }
 
     for(var i= 1; i< length; i++) {
@@ -127,18 +138,22 @@ function addBannerButtons(){
 	    	for(var j = 0; j<elements.length; j++){
 	    		elements[j].classList.add('disabled');
 	    	}
-	    	ng_banners_btn.classList.add('disabled');
+	    	for(var k=0; k<static_element_btn.length; k++)
+		    	static_element_btn[k].classList.add('disabled');
 
 	    	var span = document.createElement('span');
 	    	span.innerHTML = '<i class="fas fa-circle-notch fa-spin fa-lg ml-2"></i>';
-	    	ng_banners_btn.appendChild(span);
+	    	for(var k=0; k<static_element_btn.length; k++){
+		    	// static_element_btn[k].appendChild(span);
+		    	// console.log("static_element_btn check ==>", static_element_btn[k])
+	    	}
 
         	sequence_id = parseInt(this.getAttribute("sequence"))
-        	static_element_name = "Banner"
-        	static_element_type = 'newbanner';
+        	static_element_name = list_name
+        	static_element_type = element_type;
 	    	static_element_page_slug = 'home';
 	    	setTimeout(()=>{
-	    		fetchElement(sequence_id,ng_banners_btn);		
+	    		fetchElement(sequence_id,static_element_btn);		
 	    	},300);        	
         })
     }
@@ -223,9 +238,16 @@ function fetchElement(id, element){
 			for(var j = 0; j<elements.length; j++){
 	    		elements[j].classList.remove('disabled');
 	    	}
-	    	element.removeChild(element.childNodes[1]); 
-	    	element.classList.remove('disabled')
-			// document.getElementsByTagName("body")[0].classList.remove('full-page-loader');
+	    	try{
+		    	for(var k=0; k<element.length; k++){
+		    		// console.log(element[k]);
+		    		// element[k].removeChild(element[k].childNodes[1]); 
+			    	element[k].classList.remove('disabled')
+		    	}
+		    }
+		    catch(error){
+		    	console.log("error ==>", error);
+		    }
 		}
 	};
 	var url = domain + "/api/rest/v1/get-page-element/"+id +"?type="+static_element_type+'&page_slug='+static_element_page_slug;
@@ -438,7 +460,7 @@ function createForm(response){
 		document.getElementById("form-text-color2-section").style.display="none";
 	}
 
-	if(static_element_type == 'newbanner'){
+	if(response.element_data.display === 1 || response.element_data.display === 0){
 		if(response.element_data.display === 0)
 			document.getElementById('display_false').checked = true;
 	}
