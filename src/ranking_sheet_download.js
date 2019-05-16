@@ -32,7 +32,7 @@ function downloadCSV(){
 		}
 	};
     
-	var url = '/api/rest/v1/download-rank-csv';
+	var url = '/api/rest/v2/download-rank-csv';
 	xhttp.open("GET", url);
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
 	xhttp.setRequestHeader("Accept", "application/json");

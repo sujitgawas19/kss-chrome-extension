@@ -250,7 +250,7 @@ function fetchElement(id, element){
 		    }
 		}
 	};
-	var url = domain + "/api/rest/v1/get-page-element/"+id +"?type="+static_element_type+'&page_slug='+static_element_page_slug;
+	var url = domain + "/api/rest/v2/get-page-element/"+id +"?type="+static_element_type+'&page_slug='+static_element_page_slug;
 	// var url = 'https://demo8558685.mockable.io/get-page-element';
 	xhttp.open("GET", url , true);
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
@@ -570,7 +570,7 @@ function validateForm(){
 	console.log("Check display ==>", document.querySelector('input[name="display"]:checked').value);
 	if(validateHref() && validateTitle() && validateImgAlt() && validateProducts() && validateTrendingProduct()){
 		console.log("form is valid", elementData);
-		if(static_element_type == 'newbanner')
+		if(elementData.element_data.display === 0 || elementData.element_data.display === 1 )
 			elementData.element_data.display = parseInt(document.querySelector('input[name="display"]:checked').value)
 
 		if(elementData.element_data.image){
@@ -811,7 +811,7 @@ function saveElement(){
 		document.getElementById('submit-button').classList.remove('disabled');
 		}
 	};
-	var url = domain + '/api/rest/v1/save-page-element/'+sequence_id;
+	var url = domain + '/api/rest/v2/save-page-element/'+sequence_id;
 	console.log("save url ==>", url);
 	xhttp.open("POST", url , true);
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );

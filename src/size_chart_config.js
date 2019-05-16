@@ -90,10 +90,10 @@ function fetchFacets(){
 	};
 	// var params = ['product_brand', 'product_subtype', 'product_gender'];
 	// console.log("params ==>", params, encodeURIComponent(JSON.stringify(params)));
-	// var url = domain + "/api/rest/v1/facets?type="+encodeURIComponent(JSON.stringify(params));
+	// var url = domain + "/api/rest/v2/facets?type="+encodeURIComponent(JSON.stringify(params));
 	// console.log("check url ==>", url)
 	console.log("domain ==>", domain);
-	var url =  "/api/rest/v1/facets?type="
+	var url =  "/api/rest/v2/facets?type="
 	var param = "product_brand,product_subtype,product_gender";
 	url = url + encodeURIComponent(JSON.stringify(param))
 	url = url.replace("%22", ""); 
@@ -271,7 +271,7 @@ function callGetSizeChartApi(brand, subtype, gender){
 			document.getElementById('apply-facets').classList.remove('disabled');
 		}
 	};
-	var url = "/api/rest/v1/get-size-charts?product_brand="+brand+'&product_subtype='+subtype+'&product_gender='+gender;
+	var url = "/api/rest/v2/get-size-charts?product_brand="+brand+'&product_subtype='+subtype+'&product_gender='+gender;
 	// url = "https://demo8558685.mockable.io/size_chart";
 	xhttp.open("GET", url , true);
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
@@ -400,7 +400,7 @@ function saveElement(){
 		document.getElementById('submit-button').classList.remove('disabled');
 		}
 	};
-	var url = '/api/rest/v1/save-sizechart-images';
+	var url = '/api/rest/v2/save-sizechart-images';
 	console.log("save url ==>", url);
 	xhttp.open("POST", url , true);
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );

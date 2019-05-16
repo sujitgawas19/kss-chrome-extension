@@ -112,7 +112,7 @@ function publish(){
 	     	document.getElementsByTagName("body")[0].classList.remove('full-page-loader');	                
 	    }
 	};
-	var url = domain + '/api/rest/v1/publish-page-element';
+	var url = domain + '/api/rest/v2/publish-page-element';
 	xhttp.open("GET", url, true);
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
 	xhttp.setRequestHeader("Content-Type", "application/json");

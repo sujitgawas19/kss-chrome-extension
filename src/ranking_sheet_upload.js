@@ -133,7 +133,7 @@ function uploadCSV(){
 	var formData = new FormData();
 	console.log(formData);
 	formData.append("csv",csv.files[0]);
-	var url = '/api/rest/v1/save-rank-csv';
+	var url = '/api/rest/v2/save-rank-csv';
 
 	xhttp.open("POST", url);
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
