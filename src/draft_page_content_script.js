@@ -39,7 +39,7 @@ function addPublishSection(logged_in){
 	    if (this.readyState == 4 && this.status == 200) {
 	        var div = document.createElement('div');
 	        div.setAttribute("id", "publish-section");
-	        div.setAttribute("style","position: sticky;top: 0;z-index: 1031;");
+	        div.setAttribute("style","position: absolute;top: 0;z-index: 1031;width:100%");
 	        if(!logged_in)
 	        	div.setAttribute("style", "display:none");
 	        else
