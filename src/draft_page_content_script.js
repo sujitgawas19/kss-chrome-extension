@@ -42,6 +42,8 @@ function addPublishSection(logged_in){
 	        div.setAttribute("style","position: sticky;top: 0;z-index: 1031;");
 	        if(!logged_in)
 	        	div.setAttribute("style", "display:none");
+	        else
+	        	document.getElementsByClassName('header')[0].setAttribute("style", "top:54px");
 	        div.innerHTML = this.responseText;
 	        document.body.insertBefore(div, document.body.firstChild);
         	document.getElementById('publish-btn').addEventListener('click', function(){

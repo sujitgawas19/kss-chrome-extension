@@ -50,9 +50,11 @@ function findEditableElements(logged_in){
 				if(elements[i].getAttribute("static_element-display_type") == "BannerTest")
 					btn.setAttribute("style", "visibility:visible;width:auto;position:relative;top: -34vw;left: 90%;");
 				else if(elements[i].getAttribute("static_element-display_type") == "Section")
-					btn.setAttribute("style", "width:auto;position:absolute;top:-15px;right:0");			
+					btn.setAttribute("style", "width:auto;position:absolute;top:-15px;right:0");
+				else if(elements[i].getAttribute("static_element-display_type") == "Menu")
+					btn.setAttribute("style", "width:auto;position:absolute;z-index: 1;top: 10px");		
 				else 
-					btn.setAttribute("style", "width:auto;position:absolute;z-index: 1;top: 10px;right:0");			
+					btn.setAttribute("style", "width:auto;position:absolute;z-index: 1;top: 10px;right:0");
 			}
 			else{
 				if(elements[i].getAttribute("static_element-display_type") == "BannerTest")
@@ -64,8 +66,10 @@ function findEditableElements(logged_in){
 
 				btn.setAttribute("class", "update-element-btn btn btn-danger btn-lg pulsing d-none");
 			}
-			var btn_name = "Edit "+elements[i].getAttribute("static_element-display_type")+ " " +elements[i].getAttribute("static_element-id");
-			// console.log("btn name ==>", btn_name);
+			var btn_name = "Edit ";
+			if(elements[i].getAttribute("static_element-display_type") !== "Menu")
+				btn_name = btn_name+elements[i].getAttribute("static_element-display_type")+ " " +elements[i].getAttribute("static_element-id");
+
 			var text = document.createTextNode(btn_name);
 			btn.appendChild(text);
 			elements[i].appendChild(btn);
@@ -169,6 +173,8 @@ function addEditingEnabledElement(logged_in){
 	        div.setAttribute("style","position: sticky;top: 0;z-index: 1031;");
 	        if(!logged_in)
 	        	div.setAttribute("style", "display:none");
+	        else
+	        	document.getElementsByClassName('header')[0].setAttribute("style", "top:54px");
 	        div.innerHTML = this.responseText;
 	        document.body.insertBefore(div, document.body.firstChild);
         	document.getElementById('draft-btn').addEventListener('click', function(){
@@ -241,7 +247,7 @@ function fetchElement(id, element){
 	    	try{
 		    	for(var k=0; k<element.length; k++){
 		    		// console.log(element[k]);
-		    		// element[k].removeChild(element[k].childNodes[1]); 
+		    		element[k].removeChild(element[k].childNodes[1]); 
 			    	element[k].classList.remove('disabled')
 		    	}
 		    	element.removeChild(element.childNodes[1]); 
