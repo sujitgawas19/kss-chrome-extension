@@ -244,6 +244,7 @@ function fetchElement(id, element){
 		    		// element[k].removeChild(element[k].childNodes[1]); 
 			    	element[k].classList.remove('disabled')
 		    	}
+		    	element.removeChild(element.childNodes[1]); 
 		    }
 		    catch(error){
 		    	console.log("error ==>", error);
