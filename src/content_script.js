@@ -39,6 +39,20 @@ else{
     window.location = url;
 }
 
+// window.onpopstate = function() {
+//   console.log("check pathname ==>",window.location.pathname);
+//   if(isLoggedInUser() && window.location.pathname == "/"){
+//   	document.getElementsByClassName('header')[0].setAttribute("style", "top:54px");
+// 	document.getElementsByTagName("body")[0].setAttribute("style", "padding-top:104px");
+// 	document.getElementById('edit-enabled-element').style.display = 'block';
+//   }
+//   else{
+//   	console.log("check else")
+//   	document.getElementById('edit-enabled-element').setAttribute("style", "display:none");
+//   }
+
+// };
+
 function findEditableElements(logged_in){
 	setTimeout(()=>{
 		var elements = document.getElementsByClassName('kss-extension');
@@ -170,11 +184,14 @@ function addEditingEnabledElement(logged_in){
 	    if (this.readyState == 4 && this.status == 200) {
 	        var div = document.createElement('div');
 	        div.setAttribute("id", "edit-enabled-element");
-	        div.setAttribute("style","position: absolute;top: 0;z-index: 1031;width:100%");
-	        if(!logged_in)
+	        div.setAttribute("style","position: fixed;top: 0;z-index: 1031;width:100%");
+	        if(!logged_in){
 	        	div.setAttribute("style", "display:none");
-	        else
+	        }
+	        else{
 	        	document.getElementsByClassName('header')[0].setAttribute("style", "top:54px");
+	        	document.getElementsByTagName("body")[0].setAttribute("style", "padding-top:104px");
+	        }
 	        div.innerHTML = this.responseText;
 	        document.body.insertBefore(div, document.body.firstChild);
         	document.getElementById('draft-btn').addEventListener('click', function(){

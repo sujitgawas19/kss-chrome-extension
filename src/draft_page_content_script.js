@@ -39,11 +39,13 @@ function addPublishSection(logged_in){
 	    if (this.readyState == 4 && this.status == 200) {
 	        var div = document.createElement('div');
 	        div.setAttribute("id", "publish-section");
-	        div.setAttribute("style","position: absolute;top: 0;z-index: 1031;width:100%");
+	        div.setAttribute("style","position: fixed;top: 0;z-index: 1031;width:100%");
 	        if(!logged_in)
 	        	div.setAttribute("style", "display:none");
-	        else
+	        else{
 	        	document.getElementsByClassName('header')[0].setAttribute("style", "top:54px");
+	        	document.getElementsByTagName("body")[0].setAttribute("style", "padding-top:104px");
+	        }
 	        div.innerHTML = this.responseText;
 	        document.body.insertBefore(div, document.body.firstChild);
         	document.getElementById('publish-btn').addEventListener('click', function(){

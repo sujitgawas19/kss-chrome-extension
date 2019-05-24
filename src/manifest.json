@@ -1,6 +1,6 @@
  {
     "name": "KSS-Admin",
-    "version": "6.3.8",
+    "version": "6.3.9",
     "description": "Extension for updating KSS Home-page Elements",
     "manifest_version": 2,
      "background": {
