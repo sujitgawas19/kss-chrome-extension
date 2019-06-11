@@ -22,7 +22,7 @@
 
     XHR.send = function(postData) {
 
-        this.addEventListener('load', function() {
+        this.addEventListener('readystatechange', function() {
             var endTime = (new Date()).toISOString();
             var myUrl = this._url ? this._url.toLowerCase() : this._url;
             if(myUrl) {
