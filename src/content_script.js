@@ -264,7 +264,7 @@ function fetchElement(id, element){
 	    	try{
 		    	for(var k=0; k<element.length; k++){
 		    		// console.log(element[k]);
-		    		element[k].removeChild(element[k].childNodes[1]); 
+		    		// element[k].removeChild(element[k].childNodes[1]); 
 			    	element[k].classList.remove('disabled')
 		    	}
 		    	element.removeChild(element.childNodes[1]); 
