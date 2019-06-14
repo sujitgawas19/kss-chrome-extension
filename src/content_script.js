@@ -88,6 +88,26 @@ function findEditableElements(logged_in){
 			btn.appendChild(text);
 			elements[i].appendChild(btn);
 		}
+
+		var config_elements = document.getElementsByClassName('kss-section-config');
+		for(var i = 0; i < config_elements.length; i++){
+			var btn = document.createElement("BUTTON");
+			btn.setAttribute("class", "update-element-btn btn btn-danger btn-lg pulsing");
+			if(logged_in){
+				btn.setAttribute("style", "width:auto;position:absolute;z-index: 1;top: 140px;right:0");
+			}
+			else{
+				btn.setAttribute("style", "width:auto;position:absolute;z-index: 1;top: 140px;right:0");	
+
+				btn.setAttribute("class", "update-element-btn btn btn-danger btn-lg pulsing d-none");
+			}
+			var btn_name = "Edit "+config_elements[i].getAttribute("static_element-display_type");
+
+			var text = document.createTextNode(btn_name);
+			btn.appendChild(text);
+			config_elements[i].appendChild(btn);
+		}
+
 		editBanners();
 		addEventListner()
 	},3000);
@@ -410,9 +430,42 @@ function createEventListeners(){
 	})
 }
 
+function createSectionConfigForm(response) {
+	if(response.element_data.config){
+		let options = response.element_data.config.style
+		var ele = document.getElementById('mobile_style');
+		ele.innerHTML = '';
+        for (var i = 0; i < options.length; i++) {
+            ele.innerHTML =  ele.innerHTML +
+                '<option value="' + options[i] + '">' + options[i] + '</option>';
+        }
+
+        ele.value = response.element_data.mobile_view.style;
+
+        ele = document.getElementById('desktop_style');
+		ele.innerHTML = '';
+        for (var i = 0; i < options.length; i++) {
+            ele.innerHTML =  ele.innerHTML +
+                '<option value="' + options[i] + '">' + options[i] + '</option>';
+        }
+        ele.value = response.element_data.desktop_view.style;
+
+		if(response.element_data.mobile_view.display === 0)
+			document.getElementById('mobile_display_false').checked = true;
+
+		if(response.element_data.desktop_view.display === 0)
+			document.getElementById('desktop_display_false').checked = true;
+
+	}
+	else{
+		document.getElementById('form-config-section').style.display="none";
+	}
+}
+
 function createForm(response){
 	findFormElements();
 	createEventListeners();
+	createSectionConfigForm(response);
 	if(response.element_data.image){		
 		href.value = response.element_data.image.href;
 		title.value = response.element_data.image.title;
@@ -592,92 +645,107 @@ function validateForm(){
 	console.log("inside validate form");
 	console.log(href.value);
 	console.log("Check display ==>", document.querySelector('input[name="display"]:checked').value);
-	if(validateHref() && validateTitle() && validateImgAlt() && validateProducts() && validateTrendingProduct()){
-		console.log("form is valid", elementData);
-		if(elementData.element_data.display === 0 || elementData.element_data.display === 1 )
-			elementData.element_data.display = parseInt(document.querySelector('input[name="display"]:checked').value)
+	if(elementData.element_data.config){
+		elementData.element_data.mobile_view.display = parseInt(document.querySelector('input[name="display_mobile"]:checked').value);
+		elementData.element_data.desktop_view.display = parseInt(document.querySelector('input[name="display_desktop"]:checked').value);
 
-		if(elementData.element_data.image){
-			elementData.element_data.image.href = href.value;
-			elementData.element_data.image.title = title.value;
-			elementData.element_data.image.img_alt = img_alt.value;
+		var ele = document.getElementById('mobile_style');
+		elementData.element_data.mobile_view.style = ele.options[ele.selectedIndex].value;
+		ele = document.getElementById('desktop_style');
+		elementData.element_data.desktop_view.style = ele.options[ele.selectedIndex].value;
+		elementData.image_upload = {
+			upload : false
 		}
-		if(elementData.element_data.text){
-			elementData.element_data.text.text1 = text1.value;
-			if(elementData.element_data.text.text2)
-				elementData.element_data.text.text2 = text2.value;
-			if(elementData.element_data.text.text3)
-				elementData.element_data.text.text3 = text3.value;
-		}
-		if(elementData.element_data.products && elementData.element_data.products.length == 3){
-			elementData.element_data.products[0] = product1.value;
-			elementData.element_data.products[1] = product2.value;
-			elementData.element_data.products[2] = product3.value;
-		}
-		if(elementData.element_data.products && elementData.element_data.products.length == 1){
-			elementData.element_data.products[0] = trending_product.value;
-		}
-
-		if(elementData.element_data.bg_color){
-			elementData.element_data.bg_color = bg_color.value;
-		}
-
-		if(elementData.element_data.link){
-			elementData.element_data.link = link.value;
-		}
-
-		if(elementData.element_data.text_color){
-			elementData.element_data.text_color = text_color.value;
-		}
-
-		if(elementData.element_data.text2_color){
-			elementData.element_data.text2_color = text2_color.value;
-		}
-
-		if(port_img.value || landscape_img.value){
-			elementData.image_upload = {
-				upload : true,
-				images : {}
-			}
-			if(port_img.value){
-				getBase64(port_img.files[0]).then((data)=>{
-					if(elementData.images.portrait)
-						elementData.image_upload.images.portrait = data.split(',')[1];
-					else if(elementData.images.default)
-						elementData.image_upload.images.default = data.split(',')[1];
-					if(landscape_img.value){
-
-						getBase64(landscape_img.files[0]).then((data2)=>{
-							elementData.image_upload.images.landscape = data2.split(',')[1];
-							saveElement();
-						})
-
-					}
-					else{
-						saveElement();
-					}
-
-				})
-			}
-			else{
-				getBase64(landscape_img.files[0]).then((data2)=>{
-					elementData.image_upload.images.landscape = data2.split(',')[1];
-					saveElement();
-				})
-			}			
-		}
-		else{
-			elementData.image_upload = {
-				upload : false
-			}
-			saveElement();
-		}
-		console.log("save api request ==>", elementData);				
+		saveElement();
 	}
 	else{
-		document.getElementById('error-msg-main').style.display = "block";
-		document.getElementById('submit-button-loader').classList.add('d-none');
-		document.getElementById('submit-button').classList.remove('disabled');
+		if(validateHref() && validateTitle() && validateImgAlt() && validateProducts() && validateTrendingProduct()){
+			console.log("form is valid", elementData);
+			if(elementData.element_data.display === 0 || elementData.element_data.display === 1 )
+				elementData.element_data.display = parseInt(document.querySelector('input[name="display"]:checked').value)
+
+			if(elementData.element_data.image){
+				elementData.element_data.image.href = href.value;
+				elementData.element_data.image.title = title.value;
+				elementData.element_data.image.img_alt = img_alt.value;
+			}
+			if(elementData.element_data.text){
+				elementData.element_data.text.text1 = text1.value;
+				if(elementData.element_data.text.text2)
+					elementData.element_data.text.text2 = text2.value;
+				if(elementData.element_data.text.text3)
+					elementData.element_data.text.text3 = text3.value;
+			}
+			if(elementData.element_data.products && elementData.element_data.products.length == 3){
+				elementData.element_data.products[0] = product1.value;
+				elementData.element_data.products[1] = product2.value;
+				elementData.element_data.products[2] = product3.value;
+			}
+			if(elementData.element_data.products && elementData.element_data.products.length == 1){
+				elementData.element_data.products[0] = trending_product.value;
+			}
+
+			if(elementData.element_data.bg_color){
+				elementData.element_data.bg_color = bg_color.value;
+			}
+
+			if(elementData.element_data.link){
+				elementData.element_data.link = link.value;
+			}
+
+			if(elementData.element_data.text_color){
+				elementData.element_data.text_color = text_color.value;
+			}
+
+			if(elementData.element_data.text2_color){
+				elementData.element_data.text2_color = text2_color.value;
+			}
+
+			if(port_img.value || landscape_img.value){
+				elementData.image_upload = {
+					upload : true,
+					images : {}
+				}
+				if(port_img.value){
+					getBase64(port_img.files[0]).then((data)=>{
+						if(elementData.images.portrait)
+							elementData.image_upload.images.portrait = data.split(',')[1];
+						else if(elementData.images.default)
+							elementData.image_upload.images.default = data.split(',')[1];
+						if(landscape_img.value){
+
+							getBase64(landscape_img.files[0]).then((data2)=>{
+								elementData.image_upload.images.landscape = data2.split(',')[1];
+								saveElement();
+							})
+
+						}
+						else{
+							saveElement();
+						}
+
+					})
+				}
+				else{
+					getBase64(landscape_img.files[0]).then((data2)=>{
+						elementData.image_upload.images.landscape = data2.split(',')[1];
+						saveElement();
+					})
+				}			
+			}
+			else{
+				elementData.image_upload = {
+					upload : false
+				}
+				saveElement();
+			}
+			console.log("save api request ==>", elementData);				
+		}
+		else{
+			document.getElementById('error-msg-main').style.display = "block";
+			document.getElementById('submit-button-loader').classList.add('d-none');
+			document.getElementById('submit-button').classList.remove('disabled');
+		}
 	}
 }
 
