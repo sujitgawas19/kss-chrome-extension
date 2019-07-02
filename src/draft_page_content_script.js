@@ -1,5 +1,6 @@
 var draft_script_injected = true; 
 var domain = window.location.origin;
+var api_domain = "https://pre-prod.stage.kidsuperstore.in";
 
 if(isLoggedInUser()){
 	addPublishSection(true);
@@ -116,7 +117,7 @@ function publish(){
 	     	document.getElementsByTagName("body")[0].classList.remove('full-page-loader');	                
 	    }
 	};
-	var url = domain + '/api/rest/v2/publish-page-element';
+	var url = api_domain + '/api/rest/v2/publish-page-element';
 	xhttp.open("GET", url, true);
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
 	xhttp.setRequestHeader("Content-Type", "application/json");

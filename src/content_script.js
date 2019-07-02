@@ -20,6 +20,7 @@ var gif_max_size;
 
 var sequence_id, static_element_name, static_element_type, static_element_page_slug;
 var domain = window.location.origin;
+var api_domain = "https://pre-prod.stage.kidsuperstore.in";
 
 var link, link_error, bg_color, bg_color_error, text_color, text2_color;
 
@@ -294,7 +295,7 @@ function fetchElement(id, element){
 		    }
 		}
 	};
-	var url = domain + "/api/rest/v2/get-page-element/"+id +"?type="+static_element_type+'&page_slug='+static_element_page_slug;
+	var url = api_domain + "/api/rest/v2/get-page-element/"+id +"?type="+static_element_type+'&page_slug='+static_element_page_slug;
 	// var url = 'https://demo8558685.mockable.io/get-page-element';
 	xhttp.open("GET", url , true);
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
@@ -903,7 +904,7 @@ function saveElement(){
 		document.getElementById('submit-button').classList.remove('disabled');
 		}
 	};
-	var url = domain + '/api/rest/v2/save-page-element/'+sequence_id;
+	var url = api_domain + '/api/rest/v2/save-page-element/'+sequence_id;
 	console.log("save url ==>", url);
 	xhttp.open("POST", url , true);
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );

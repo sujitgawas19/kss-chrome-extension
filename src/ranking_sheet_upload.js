@@ -1,5 +1,5 @@
 console.log("ranking sheet upload js");
-
+var api_domain = "https://pre-prod.stage.kidsuperstore.in";
 
 if(isLoggedInUser()){
 	getFormTemplate();
@@ -133,7 +133,7 @@ function uploadCSV(){
 	var formData = new FormData();
 	console.log(formData);
 	formData.append("csv",csv.files[0]);
-	var url = '/api/rest/v2/save-rank-csv';
+	var url = api_domain + '/api/rest/v2/save-rank-csv';
 
 	xhttp.open("POST", url);
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );

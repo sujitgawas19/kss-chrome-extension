@@ -1,5 +1,5 @@
 console.log("download sheet upload js");
-
+var api_domain = "https://pre-prod.stage.kidsuperstore.in";
 
 if(isLoggedInUser()){
 	downloadCSV();
@@ -32,7 +32,7 @@ function downloadCSV(){
 		}
 	};
     
-	var url = '/api/rest/v2/download-rank-csv';
+	var url = api_domain + '/api/rest/v2/download-rank-csv';
 	xhttp.open("GET", url);
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
 	xhttp.setRequestHeader("Accept", "application/json");
