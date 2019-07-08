@@ -301,7 +301,8 @@ function fetchElement(id, element){
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
 	xhttp.setRequestHeader("Content-Type", "application/json");
 	xhttp.setRequestHeader("Accept", "application/json");
-	xhttp.send();
+	xhttp.setRequestHeader("X-Chrome-Extension", "KSS");
+	xhttp.send(null);
 }
 
 function getCookie(cname) {
@@ -910,6 +911,7 @@ function saveElement(){
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
 	xhttp.setRequestHeader("Content-Type", "application/json");
 	xhttp.setRequestHeader("Accept", "application/json");
+	xhttp.setRequestHeader("X-Chrome-Extension", "KSS");
 	delete elementData.image_config;
 	delete elementData.images;
 	elementData.page_slug = static_element_page_slug;

@@ -36,6 +36,7 @@ function downloadCSV(){
 	xhttp.open("GET", url);
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
 	xhttp.setRequestHeader("Accept", "application/json");
+    xhttp.setRequestHeader("X-Chrome-Extension", "KSS");
 	xhttp.send();
 }
 

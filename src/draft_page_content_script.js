@@ -122,6 +122,7 @@ function publish(){
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
 	xhttp.setRequestHeader("Content-Type", "application/json");
 	xhttp.setRequestHeader("Accept", "application/json");
+	xhttp.setRequestHeader("X-Chrome-Extension", "KSS");
 	xhttp.send();	
 }
 

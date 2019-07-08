@@ -105,6 +105,7 @@ function fetchFacets(){
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
 	xhttp.setRequestHeader("Content-Type", "application/json");
 	xhttp.setRequestHeader("Accept", "application/json");
+	xhttp.setRequestHeader("X-Chrome-Extension", "KSS");
 	xhttp.send();
 }
 
@@ -406,6 +407,7 @@ function saveElement(){
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
 	xhttp.setRequestHeader("Content-Type", "application/json");
 	xhttp.setRequestHeader("Accept", "application/json");
+	xhttp.setRequestHeader("X-Chrome-Extension", "KSS");
 	console.log("inside saveElement function",sizeChartData);
 	var formattedJsonData = JSON.stringify(sizeChartData);
 	xhttp.send(formattedJsonData);

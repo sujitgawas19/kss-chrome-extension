@@ -139,6 +139,7 @@ function uploadCSV(){
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
 	xhttp.setRequestHeader("Accept", "application/json");
 	// xhttp.setRequestHeader("Content-type", "multipart/form-data");
+	xhttp.setRequestHeader("X-Chrome-Extension", "KSS");
 	xhttp.send(formData);
 }
 
