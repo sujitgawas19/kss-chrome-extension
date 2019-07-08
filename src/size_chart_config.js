@@ -278,6 +278,7 @@ function callGetSizeChartApi(brand, subtype, gender){
 	xhttp.setRequestHeader('Authorization' , 'Bearer '+getCookie('token') );
 	xhttp.setRequestHeader("Content-Type", "application/json");
 	xhttp.setRequestHeader("Accept", "application/json");
+	xhttp.setRequestHeader("X-Chrome-Extension", "KSS");
 	xhttp.send();
 }
 
@@ -439,14 +440,16 @@ function previewFile(type) {
 				preview.src = reader.result;
 				document.getElementsByClassName('img-info')[0].classList.add('d-flex');
 				document.getElementById('port_file_name').innerHTML = port_img.files[0].name;
-				portrait_img_error.style.display = "none";
+				if(portrait_img_error)
+					portrait_img_error.style.display = "none";
 				document.getElementsByClassName('portrait-uploader')[0].classList.add('d-none');
 				document.getElementsByClassName('portrait-uploader')[0].classList.remove('d-block');
 			}
 		}
 		else{
 			preview.src = reader.result;
-			landscape_img_error.style.display = "none";
+			if(landscape_img_error)
+				landscape_img_error.style.display = "none";
 			document.getElementsByClassName('img-info-land')[0].classList.add('d-flex');
 			document.getElementById('land_file_name').innerHTML = landscape_img.files[0].name;
 			document.getElementsByClassName('landscape-uploader')[0].classList.add('d-none');
