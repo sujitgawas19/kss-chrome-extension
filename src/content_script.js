@@ -20,7 +20,7 @@ var gif_max_size;
 
 var sequence_id, static_element_name, static_element_type, static_element_page_slug;
 var domain = window.location.origin;
-var api_domain = "https://pre-prod.stage.kidsuperstore.in";
+var api_domain = domain == "https://www.kidsuperstore.in" ? "https://api.kidsuperstore.in" : "https://api.stage.kidsuperstore.in";
 
 var link, link_error, bg_color, bg_color_error, text_color, text2_color;
 

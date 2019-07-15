@@ -1,6 +1,6 @@
 console.log("ranking sheet upload js");
-var api_domain = "https://pre-prod.stage.kidsuperstore.in";
-
+var domain = window.location.origin;
+var api_domain = domain == "https://www.kidsuperstore.in" ? "https://api.kidsuperstore.in" : "https://api.stage.kidsuperstore.in";
 if(isLoggedInUser()){
 	getFormTemplate();
 }
@@ -12,7 +12,6 @@ else{
 
 
 var facets, brands, genders, subtypes, sizeChartData;
-var domain = window.location.origin;
 var port_img, landscape_img;
 
 function getFormTemplate(response){
