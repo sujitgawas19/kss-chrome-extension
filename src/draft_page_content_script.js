@@ -1,6 +1,6 @@
 var draft_script_injected = true; 
 var domain = window.location.origin;
-var api_domain = domain == "https://www.kidsuperstore.in" ? "https://api.kidsuperstore.in" : "https://api.stage.kidsuperstore.in";
+var api_domain = domain == "https://www.kidsuperstore.in" ? "https://api.kidsuperstore.in" : (domain == "https://angular.stage.kidsuperstore.in" ? "https://api.stage.kidsuperstore.in" : "https://api-v2.stage.kidsuperstore.in");
 
 if(isLoggedInUser()){
 	addPublishSection(true);

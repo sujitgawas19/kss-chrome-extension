@@ -1,6 +1,6 @@
  {
     "name": "KSS-Admin",
-    "version": "6.4.3",
+    "version": "6.4.5",
     "description": "Extension for updating KSS Home-page Elements",
     "manifest_version": 2,
      "background": {
@@ -16,6 +16,7 @@
       "https://www.kidsuperstore.in/*",
       "https://pre-prod.stage.kidsuperstore.in/*",
       "https://angular.stage.kidsuperstore.in/*",
+      "https://angular-v2.stage.kidsuperstore.in/*",
       "http://localhost:4000/*"
      ],
      "browser_action": {
@@ -24,7 +25,7 @@
     },
      "content_scripts": [
       {
-       "matches": ["http://localhost:8000/*", "https://www.kidsuperstore.in/*", "https://test.stage.kidsuperstore.in/*", "https://pre-prod.stage.kidsuperstore.in/*" , "https://angular.stage.kidsuperstore.in/*"],
+       "matches": ["http://localhost:8000/*", "https://www.kidsuperstore.in/*", "https://test.stage.kidsuperstore.in/*", "https://pre-prod.stage.kidsuperstore.in/*" , "https://angular.stage.kidsuperstore.in/*", "https://angular-v2.stage.kidsuperstore.in/*"],
        "run_at": "document_idle",
        "js": ["copy_product_id_script.js"]
       }

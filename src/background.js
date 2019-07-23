@@ -1,8 +1,18 @@
 console.log("background.js");
 
-var home_pages = ['http://localhost:4000/','http://localhost:4000/newhome', 'https://test.stage.kidsuperstore.in/', 'https://www.kidsuperstore.in/', 'https://pre-prod.stage.kidsuperstore.in/', 'http://localhost:4000/shop/boys', 'http://localhost:4000/shop/girls', 'http://localhost:4000/shop/infants', 'https://test.stage.kidsuperstore.in/shop/boys', 'https://test.stage.kidsuperstore.in/shop/girls', 'https://test.stage.kidsuperstore.in/shop/infants', 'https://www.kidsuperstore.in/shop/boys', 'https://www.kidsuperstore.in/shop/girls', 'https://www.kidsuperstore.in/shop/infants', 'https://pre-prod.stage.kidsuperstore.in/shop/boys', 'https://pre-prod.stage.kidsuperstore.in/shop/girls', 'https://pre-prod.stage.kidsuperstore.in/shop/infants', "https://pre-prod.stage.kidsuperstore.in/newhome", "https://www.kidsuperstore.in/newhome", "https://angular.stage.kidsuperstore.in/"];
+var home_pages = [
+	'http://localhost:4000/', 'http://localhost:4000/shop/boys', 'http://localhost:4000/shop/girls', 'http://localhost:4000/shop/infants', 
+	'https://www.kidsuperstore.in/', 'https://www.kidsuperstore.in/shop/boys', 'https://www.kidsuperstore.in/shop/girls', 'https://www.kidsuperstore.in/shop/infants',
+	'https://angular-v2.stage.kidsuperstore.in/', 'https://angular-v2.stage.kidsuperstore.in/shop/boys', 'https://angular-v2.stage.kidsuperstore.in/shop/girls', 'https://angular-v2.stage.kidsuperstore.in/shop/infants', 
+	'https://angular.stage.kidsuperstore.in/', 'https://angular.stage.kidsuperstore.in/shop/boys', 'https://angular.stage.kidsuperstore.in/shop/girls', 'https://angular.stage.kidsuperstore.in/shop/infants'
+	];
 
-var draft_pages = [ 'http://localhost:4000/drafthome', 'https://test.stage.kidsuperstore.in/drafthome', 'https://www.kidsuperstore.in/drafthome', 'https://pre-prod.stage.kidsuperstore.in/drafthome', 'http://localhost:4000/draft/boys', 'http://localhost:4000/draft/girls', 'http://localhost:4000/draft/infants', 'https://test.stage.kidsuperstore.in/draft/boys', 'https://test.stage.kidsuperstore.in/draft/girls', 'https://test.stage.kidsuperstore.in/draft/infants', 'https://www.kidsuperstore.in/draft/boys', 'https://www.kidsuperstore.in/draft/girls', 'https://www.kidsuperstore.in/draft/infants', 'https://pre-prod.stage.kidsuperstore.in/draft/boys', 'https://pre-prod.stage.kidsuperstore.in/draft/girls', 'https://pre-prod.stage.kidsuperstore.in/draft/infants', 'https://angular.stage.kidsuperstore.in/drafthome'];
+var draft_pages = [
+	'http://localhost:4000/drafthome', 'http://localhost:4000/draft/boys', 'http://localhost:4000/draft/girls', 'http://localhost:4000/draft/infants',
+	'https://www.kidsuperstore.in/drafthome', 'https://www.kidsuperstore.in/draft/boys', 'https://www.kidsuperstore.in/draft/girls', 'https://www.kidsuperstore.in/draft/infants', 
+	'https://angular-v2.stage.kidsuperstore.in/drafthome', 'https://angular-v2.stage.kidsuperstore.in/draft/boys', 'https://angular-v2.stage.kidsuperstore.in/draft/girls', 'https://angular-v2.stage.kidsuperstore.in/draft/infants', 
+	'https://angular.stage.kidsuperstore.in/drafthome', 'https://angular.stage.kidsuperstore.in/draft/boys', 'https://angular.stage.kidsuperstore.in/draft/girls', 'https://angular.stage.kidsuperstore.in/draft/infants'
+	];
 
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab){
 	console.log("Updated tab ==>", tabId, changeInfo, tab);

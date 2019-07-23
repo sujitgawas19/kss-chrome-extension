@@ -1,23 +1,13 @@
 let element = document.getElementById('kss-price');
-// var btn = document.createElement("BUTTON");
-
 para = document.createElement("P");
 para.setAttribute("style", "border: 2px solid #ddd;font-weight: bold;font-size: 1.2em;padding: 5px;");
 para.setAttribute("id", "product_color_id")
 let data_element = document.getElementById('product-id-data');
 if(data_element){
-    let parent_id = data_element.getAttribute("product_id");
-    let selected_color_id = data_element.getAttribute("product_color_html");
-    para.innerHTML = "Product.Color id = <span style='color: red;'>"+parent_id+"."+selected_color_id+ "</span>"
+    let product_id = data_element.getAttribute("product_id");
+    para.innerHTML = "Product Id = <span style='color: red;'>"+product_id+"</span>"
     element.insertAdjacentElement("afterend", para);
 }
-// var btn_name = "Product.Color id = "+parent_id+"."+selected_color_id;
-// var text = document.createTextNode(btn_name);
-// btn.appendChild(text);
-
-
-
-
 
 (function(xhr) {
     console.log("function xhr");
@@ -76,7 +66,7 @@ if(data_element){
 							para = document.createElement("P");
 							para.setAttribute("id", "product_color_id");
 							para.setAttribute("style", "border: 2px solid #ddd;font-weight: bold;font-size: 1.2em;padding: 5px;");
-							para.innerHTML = "Product.Color id = <span style='color: red;'>"+productData.attributes.product_id+"."+productData.facets.product_color_html.id+ "</span>"
+							para.innerHTML = "Product Id = <span style='color: red;'>"+productData.attributes.product_id+"</span>"
 							element.insertAdjacentElement("afterend", para);
                         }
                     } catch(err) {

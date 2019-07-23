@@ -1,7 +1,6 @@
 console.log("size chart config js");
-// var api_domain =  "https://api.kidsuperstore.in";
 var domain = window.location.origin;
-var api_domain = domain == "https://www.kidsuperstore.in" ? "https://api.kidsuperstore.in" : "https://api.stage.kidsuperstore.in";
+var api_domain = domain == "https://www.kidsuperstore.in" ? "https://api.kidsuperstore.in" : (domain == "https://angular.stage.kidsuperstore.in" ? "https://api.stage.kidsuperstore.in" : "https://api-v2.stage.kidsuperstore.in");
 
 if(isLoggedInUser()){
 	getFormTemplate();
@@ -12,13 +11,6 @@ else{
 	var url = window.location.href.split("#")[0] + '#/account';
     window.location = url;
 }
-
-
-
-
-// fetchBrands();
-// fetchSubType();
-// fetchGender();
 
 var facets, brands, genders, subtypes, sizeChartData;
 var port_img, landscape_img;
