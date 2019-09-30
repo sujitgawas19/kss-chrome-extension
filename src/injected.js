@@ -1,12 +1,6 @@
-let element = document.getElementById('kss-price');
-para = document.createElement("P");
-para.setAttribute("style", "border: 2px solid #ddd;font-weight: bold;font-size: 1.2em;padding: 5px;");
-para.setAttribute("id", "product_color_id")
-let data_element = document.getElementById('product-id-data');
-if(data_element){
-    let product_id = data_element.getAttribute("product_id");
-    para.innerHTML = "Product Id = <span style='color: red;'>"+product_id+"</span>"
-    element.insertAdjacentElement("afterend", para);
+let elements = document.getElementsByClassName("product_extension_details");
+for (var index = 0; index < elements.length; index++) {
+    elements[index].classList.remove("d-none");
 }
 
 (function(xhr) {
@@ -56,18 +50,11 @@ if(data_element){
                 if ( this.responseType != 'blob' && this.responseText) {
                     try {
                         // here you get RESPONSE TEXT (BODY), in JSON format, so you can use JSON.parse
-                        if(this._url.includes('single-product?')){
-                            console.log("check response ==>", JSON.parse(this.responseText));
-                            let element = document.getElementById("product_color_id");
-                            if(element)
-                            	element.parentNode.removeChild(element);
-                            let productData = JSON.parse(this.responseText);
-	                        element = document.getElementById('kss-price');
-							para = document.createElement("P");
-							para.setAttribute("id", "product_color_id");
-							para.setAttribute("style", "border: 2px solid #ddd;font-weight: bold;font-size: 1.2em;padding: 5px;");
-							para.innerHTML = "Product Id = <span style='color: red;'>"+productData.attributes.product_id+"</span>"
-							element.insertAdjacentElement("afterend", para);
+                        if(this._url.includes('/single-product?') || this._url.includes('/product-list')){
+                            let elements = document.getElementsByClassName("product_extension_details");
+                            for (var index = 0; index < elements.length; index++) {
+                                elements[index].classList.remove("d-none");
+                            }
                         }
                     } catch(err) {
                         console.log("Error in responseType try catch");
