@@ -50,11 +50,13 @@ for (var index = 0; index < elements.length; index++) {
                 if ( this.responseType != 'blob' && this.responseText) {
                     try {
                         // here you get RESPONSE TEXT (BODY), in JSON format, so you can use JSON.parse
-                        if(this._url.includes('/single-product?') || this._url.includes('/product-list')){
-                            let elements = document.getElementsByClassName("product_extension_details");
-                            for (var index = 0; index < elements.length; index++) {
-                                elements[index].classList.remove("d-none");
-                            }
+                        if(this._url.includes('/single-product?') || this._url.includes('/product-list') || this._url.includes('/get-filters') || this._url.includes('/get-filters-count')){
+                            setTimeout(function(){
+                                let elements = document.getElementsByClassName("product_extension_details");
+                                for (var index = 0; index < elements.length; index++) {
+                                    elements[index].classList.remove("d-none");
+                                }
+                            }, 500);
                         }
                     } catch(err) {
                         console.log("Error in responseType try catch");
